@@ -1,0 +1,466 @@
+﻿ a,img {
+	border:0;
+}
+
+/* case */
+.case_box {
+	position:relative;
+	width:100%;
+	height:440px;
+	overflow:hidden;
+}
+
+.case_box ul {
+	position:absolute;
+	height:470px;
+	overflow:hidden;
+	top:0px;
+	left:0px;
+}
+.case_box ul li {
+	width:1900px;
+	overflow:hidden;
+	float:left;
+	height:440px;
+   cursor:pointer;
+}
+.case_box ul li dl.case_info {
+	width:1175px;
+	color:#616741;
+	font-size:13px;
+   margin-left:120px;
+}
+
+.case_box ul li.case_1 {
+	height:440px;
+	background:url(../images/banner-zhi10.jpg) no-repeat left top scroll transparent;
+	display:block; 
+	overflow:hidden; 
+}
+.case_box ul li.case_2 {
+	height:440px;
+	background:url(../images/banner-dayun.jpg) no-repeat left top scroll transparent;
+	display:block; 
+	overflow:hidden; 
+}
+.case_box ul li.case_3 {
+	height:440px;
+	background:url(../images/banner-ac313.jpg) no-repeat left top scroll transparent;
+	display:block; 
+	overflow:hidden; 
+}
+.case_box ul li.case_4 {
+	height:440px;
+	background:url(../images/banner033.jpg) no-repeat left top scroll transparent;
+	display:block; 
+	overflow:hidden; 
+}
+
+.case_box ul li.case_5 {
+	height:440px;
+	background:url(../images/n2.jpg) no-repeat center top scroll transparent;
+	display:block; 
+	overflow:hidden; 
+}
+
+.case_box ul li.case_6 {
+	height:440px;
+	background:url(../images/helibanner.jpg) no-repeat center top scroll transparent;
+	display:block; 
+	overflow:hidden; 
+}
+
+.case_box ul li.case_7 {
+	height:440px;
+	background:url(../images/banner011.jpg) no-repeat left top scroll transparent;
+	display:block; 
+	overflow:hidden; 
+}
+.case_box ul li.case_8 {
+	height:440px;
+	background:url(../images/banner19.jpg) no-repeat center top scroll transparent;
+	display:block; 
+	overflow:hidden; 
+}
+.case_box ol {
+	position:absolute;
+	bottom:0;
+	left:50%;
+	margin:0 0 20px -65px;
+	height:24px;
+	z-index:99;
+}
+.case_box ol li {
+	float:left;
+	margin:0 6px;
+	display:inline;
+	width:23px;
+	height:24px;
+	line-height:999em;
+	background:url(../images/pagination.png) no-repeat;
+	overflow:hidden;
+	cursor:pointer;
+}
+.case_box ol li.active {
+	background-position:0 -27px;
+}
+
+.ljmore{
+	background-image:url(../images/img-more.png);
+	background-repeat:no-repeat;
+	background-position:5px 28px;
+	height:60px;
+	padding-left:35px;
+	padding-top:37px;
+	color:#fff;
+	font-size:15px;
+	font-weight:bold;
+}
+
+.ljmore a{
+	cursor:pointer;
+	color:#fff;
+	text-decoration:none;
+}
+
+.ljmore a:hover{
+	text-decoration:underline;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+.z-biaoyu{
+	font-size:56px; 
+	color:#2A2F2B; 
+	font-weight:bold; 
+	margin-top:126px; 
+	letter-spacing:2px;
+}
+
+.s-biaoyu{
+	font-size:40px; 
+	color:#2A2F2B; 
+	font-weight:bold; 
+	margin:40px 0 0 60px; 
+}
+
+.z-content{
+	font-size:16px; 
+	color:#2A2F2B; 
+	margin-top:20px; 
+	line-height:28px;
+}
+/* 左侧图片轮播调用 */
+
+.left-case_box {
+	position:relative;
+	width:380px;
+	height:210px;
+	overflow:hidden
+}
+
+.left-case_box ul {
+	position:absolute;
+	height:210px;
+	overflow:hidden;
+	top:0px;
+	left:0px
+}
+
+.left-case_box ul li.left-case_1 {
+	background:url(../images/zmyg.jpg);
+	background-repeat:no-repeat;
+	background-position:center top;
+	
+}
+
+.left-case_box ul li.left-case_2 {
+	background:url(../images/zmyg2.jpg) no-repeat center top;
+}
+
+.left-case_box ul li {
+	float:left;
+	width:380px;
+	height:210px;
+}
+.left-case_box ul li dl.case_info {
+	zoom:1;
+	color:#616741;
+	font-size:13px;
+}
+.left-case_box ol {
+	position:absolute;
+	bottom:0;
+	left:50%;
+	margin:0 0 40px -30px;
+	height:13px;
+	z-index:99;
+}
+.left-case_box ol li {
+	float:left;
+	margin:0 4px;
+	display:inline;
+	width:13px;
+	height:13px;
+	line-height:999em;
+	background:url(../images/pagion.png) no-repeat;
+	overflow:hidden;
+	cursor:pointer;
+}
+.left-case_box ol li.active {
+	background-position:0 -20px;
+}
+
+/* 中间图片轮播调用 */
+.mid-case_box {
+	position:relative;
+	width:380px;
+	height:210px;
+	overflow:hidden
+}
+
+.mid-case_box ul {
+	position:absolute;
+	overflow:hidden;
+	top:0px;
+	left:0px
+}
+.mid-case_box ul li {
+	float:left;
+	width:380px;
+	height:210px;
+}
+
+.mid-case_box p{
+	z-index:2;
+	position:absolute;
+	text-indent:-9999px;
+	width:37px;
+	height:50px;
+	top:35%;
+	cursor:pointer
+}
+
+.mid-case_box ul li dl.case_info {
+	zoom:1;
+	color:#616741;
+	font-size:13px;
+}
+.mid-case_box .prev {
+	text-indent:-9999px;
+	background:url(../images/previous.png) no-repeat;
+	filter:alpha(opacity=20); 
+	-moz-opacity:0.2; 
+	opacity:0.2;
+	left:0px;
+	top:35%;
+}
+.mid-case_box .next {
+	text-indent:-9999px;
+	background:url(../images/next.png) no-repeat;
+	filter:alpha(opacity=20); 
+	-moz-opacity:0.2; 
+	opacity:0.2;
+	top:35%;
+	right:0px
+}
+
+.mid-case_box .prev:hover {
+	text-indent:-9999px;
+	background:url(../images/previous.png) no-repeat;
+	filter:alpha(opacity=40); 
+	-moz-opacity:0.4; 
+	opacity:0.4;
+	left:0px;
+	top:35%;
+}
+.mid-case_box .next:hover {
+	text-indent:-9999px;
+	background:url(../images/next.png) no-repeat;
+	filter:alpha(opacity=40); 
+	-moz-opacity:0.4; 
+	opacity:0.4;
+	top:35%;
+	right:0px
+}
+
+.mid-case_box ul li.mid-case_1 {
+	background:url(../images/z-zdj.jpg) no-repeat center top;
+}
+.mid-case_box ul li.mid-case_2 {
+	background:url(../images/z-zdj.jpg) no-repeat center top;
+}
+
+/* 二级页面调用图片轮播 */
+
+.sec_case_box {
+	position:relative;
+	width:100%;
+	height:440px;
+	overflow:hidden
+}
+
+.sec_case_box ul {
+	position:absolute;
+	overflow:hidden;
+	top:0px;
+	left:0px
+}
+.sec_case_box ul li {
+	float:left;
+	width:2000px;
+	height:440px;
+}
+
+#div-auto1180{
+	width:1000px;
+	margin:0 auto;
+	position:relative;
+	padding-top:340px;
+   padding-left:175px;
+	z-index:1;
+}
+
+#div-auto1180 p{
+	margin:5px;
+	width:70px;
+	height:50px;
+	cursor:pointer;
+	z-index:1;
+}
+
+.sec_case_box ul li dl.case_info {
+	zoom:1;
+	color:#616741;
+	font-size:13px;
+}
+.sec_case_box .prev {
+   float:left;
+	text-indent:-9999px;
+	background:url(../images/prevs.png) no-repeat;
+	filter:alpha(opacity=50); 
+	-moz-opacity:0.5; 
+	opacity:0.5;
+	top:362px;
+   margin-left:-15px !important;
+}
+.sec_case_box .next {
+   float:left;
+	text-indent:-9999px;
+	background:url(../images/nexs.png) no-repeat;
+	filter:alpha(opacity=50); 
+	-moz-opacity:0.5; 
+	opacity:0.5;
+	top:362px;
+}
+
+.sec_case_box .prev:hover {
+   float:left;
+	text-indent:-9999px;
+	background:url(../images/prevs.png) no-repeat;
+	filter:alpha(opacity=70); 
+	-moz-opacity:0.7; 
+	opacity:0.7;
+	top:362px;
+   margin-left:-15px !important;
+}
+.sec_case_box .next:hover {
+   float:left;
+	text-indent:-9999px;
+	background:url(../images/nexs.png) no-repeat;
+	filter:alpha(opacity=70); 
+	-moz-opacity:0.7; 
+	opacity:0.7;
+	top:362px;
+}
+
+.sec_case_box ul li.sec_case_1 {
+	background:url(../images/z-aboutus1.jpg) no-repeat center top;
+}
+.sec_case_box ul li.sec_case_2 {
+	background:url(../images/service01.jpg) no-repeat center top;
+}
+/*新添加的创新与发展更换图片*/
+.sec_case_box ul li.sec_case_in1{
+	background:url(../images/z-innovation01.jpg) no-repeat center top;
+}
+.sec_case_box ul li.sec_case_in2 {
+	background:url(../images/cx.jpg) no-repeat center top;
+}
+/*新添加的人才招聘更换图片*/
+.sec_case_box ul li.sec_case_re1{
+	background:url(../images/rc1.jpg) no-repeat center top;
+}
+.sec_case_box ul li.sec_case_re2 {
+	background:url(../images/rc2.jpg) no-repeat center top;
+}
+/*新添加的产品与服务更换图片*/
+.sec_case_box ul li.sec_case_se1 {
+	background:url(../images/recruitment01.jpg) center top no-repeat scroll;
+}
+.sec_case_box ul li.sec_case_se2 {
+	background:url(../images/wm.jpg) no-repeat center top scroll;
+}
+
+/*新添加新闻更换图片*/
+.sec_case_box ul li.sec_case_new1 {
+	background:url(../images/z-news.jpg) no-repeat center top;
+}
+.sec_case_box ul li.sec_case_new2 {
+	background:url(../images/xw.jpg) no-repeat center top;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

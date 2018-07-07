@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.member.dao.MembersDao">
+    
+	<sql id="membersColumns">
+		a.id AS "id",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.del_flag AS "delFlag",
+		a.remarks AS "remarks",
+		a.name AS "name",
+		a.mobile AS "mobile",
+		a.email AS "email",
+		a.birthday AS "birthday",
+		a.sex AS "sex",
+		a.wedlock AS "wedlock",
+		a.login_count AS "loginCount",
+		a.resetpwd AS "resetpwd",
+		a.resetpwdtime AS "resetpwdtime",
+		a.area AS "area",
+		a.addr AS "addr",
+		a.member_lv_id AS "memberLvId",
+		a.point AS "point",
+		a.advance AS "advance",
+		a.advance_freeze AS "advanceFreeze",
+		a.point_freeze AS "pointFreeze",
+		a.point_history AS "pointHistory",
+		a.state AS "state",
+		a.biz_money AS "bizMoney",
+		a.unreadmsg AS "unreadmsg",
+		a.tel AS "tel",
+		a.order_num AS "orderNum",
+		a.refer_id AS "referId",
+		a.refer_url AS "referUrl",
+		a.education AS "education",
+		a.vocation AS "vocation",
+		a.interest AS "interest",
+		a.reg_ip AS "regIp",
+		a.source AS "source",
+		a.bak1 AS "bak1",
+		a.bak2 AS "bak2",
+		a.bak3 AS "bak3",
+		a.bak4 AS "bak4",
+		a.bak5 AS "bak5"
+	</sql>
+	
+	<sql id="membersJoins">
+	</sql>
+    
+	<select id="get" resultType="Members">
+		SELECT 
+			<include refid="membersColumns"/>
+		FROM members a
+		<include refid="membersJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Members">
+		SELECT 
+			<include refid="membersColumns"/>
+		FROM members a
+		<include refid="membersJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND a.mobile = #{mobile}
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email = #{email}
+			</if>
+			<if test="loginCount != null and loginCount != ''">
+				AND a.login_count = #{loginCount}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Members">
+		SELECT 
+			<include refid="membersColumns"/>
+		FROM members a
+		<include refid="membersJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO members(
+			<!-- id, -->
+			create_date,
+			update_date,
+			create_by,
+			update_by,
+			del_flag,
+			remarks,
+			name,
+			mobile,
+			email,
+			birthday,
+			sex,
+			wedlock,
+			login_count,
+			resetpwd,
+			resetpwdtime,
+			area,
+			addr
+		) VALUES (
+			<!-- #{id}, -->
+			#{createDate},
+			#{updateDate},
+			#{createBy.id},
+			#{updateBy.id},
+			#{delFlag},
+			#{remarks},
+			#{name},
+			#{mobile},
+			#{email},
+			#{birthday},
+			#{sex},
+			#{wedlock},
+			#{loginCount},
+			#{resetpwd},
+			#{resetpwdtime},
+			#{area},
+			#{addr}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE members SET 	
+			update_date = #{updateDate},
+			update_by = #{updateBy.id},
+			remarks = #{remarks},
+			name = #{name},
+			mobile = #{mobile},
+			email = #{email},
+			birthday = #{birthday},
+			sex = #{sex},
+			wedlock = #{wedlock},
+			login_count = #{loginCount},
+			resetpwd = #{resetpwd},
+			resetpwdtime = #{resetpwdtime},
+			area = #{area},
+			addr = #{addr}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE members SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

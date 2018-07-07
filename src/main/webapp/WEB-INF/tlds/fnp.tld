@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+    
+  <description>JSTL 1.1 functions library</description>
+  <display-name>JSTL functions product</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>fnp</short-name>
+  <uri>http://java.sun.com/jsp/jstl/functionsp</uri>
+  
+  <function>
+    <description>获取产品列表</description>
+    <name>getProductList</name>
+    <function-class>com.thinkgem.jeesite.modules.product.utils.ProductUtils</function-class>
+    <function-signature>java.util.List getProductList(java.lang.String,java.lang.String)</function-signature>
+    <example>${fnp:getProductList(siteId,delFlag)}</example>  
+  </function>
+  
+  <function>
+    <description>将传入的一个字符串中的图片路径分割</description>
+    <name>getImageByPath</name>
+    <function-class>com.thinkgem.jeesite.modules.product.utils.ProductUtils</function-class>
+    <function-signature>java.util.List getImageByPath(java.lang.String)</function-signature>
+    <example>${fnp:getImageByPath(path)}</example>  
+  </function>
+  
+  <function>
+    <description>获取热门产品</description>
+    <name>getHotProductList</name>
+    <function-class>com.thinkgem.jeesite.modules.product.utils.ProductUtils</function-class>
+    <function-signature>java.util.List getHotProductList(java.lang.String,java.lang.String,java.lang.Integer)</function-signature>
+    <example>${fnp:getHotProductList(siteId,delFlag,pageSize)}</example>  
+  </function>
+  
+  
+</taglib>

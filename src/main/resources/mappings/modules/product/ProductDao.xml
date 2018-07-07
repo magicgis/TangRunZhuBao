@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.product.dao.ProductDao">
+    
+	<sql id="productColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.cost AS "cost",
+		a.full_name AS "fullName",
+		a.name AS "name",
+		
+		a.hits AS "hits",
+		a.introduction AS "introduction",
+		a.is_top AS "isTop",
+		a.keyword AS "keyword",
+		a.market_price AS "marketPrice",
+		a.price AS "price",
+		a.sales AS "sales",
+		a.seo_description AS "seoDescription",
+		a.seo_keywords AS "seoKeywords",
+		a.seo_title AS "seoTitle",
+		a.weight AS "weight",
+		a.size AS "size",
+		a.technology AS "technology",
+		a.product_category AS "productCategory",
+		a.product_material AS "productMaterial",
+		a.product_speciescolor AS "productSpeciescolor",
+		a.is_enable_group AS "isEnableGroup",
+		a.product_group AS "productGroup",
+		
+		a.brand AS "brand",
+		a.time_to_market AS "timeToMarket",
+		a.optimal_processing_method AS "optimalProcessingMethod",
+		a.same_to_market AS "sameToMarket",
+		a.identification_mark AS "identificationMark",		
+		a.identification_category AS "identificationCategory",
+		a.certification_mark AS "certificationMark",
+		a.sales_channel_type AS "salesChannelType",
+		a.pattern_shape AS "patternShape",
+		a.mosaic_material AS "mosaicMaterial",
+		a.freight_number AS "freightNumber",
+		
+		a.image_share1 AS "imageShare1",
+		a.image_share2 AS "imageShare2",
+		a.image_share3 AS "imageShare3",
+		a.image_share4 AS "imageShare4",
+		a.image_emerald1 AS "imageEmerald1",
+		a.image_emerald2 AS "imageEmerald2",
+		a.image_emerald3 AS "imageEmerald3",
+		a.image_emerald4 AS "imageEmerald4",
+		a.image_emerald_nephrite1 AS "imageEmeraldNephrite1",
+		a.image_emerald_nephrite2 AS "imageEmeraldNephrite2",
+		a.image_nephrite1 AS "imageNephrite1",
+		a.image_nephrite2 AS "imageNephrite2",
+		a.image_nephrite3 AS "imageNephrite3",
+		a.image_diamonds AS "imageDiamonds",
+		
+		a.bak1 AS "bak1",
+		a.bak2 AS "bak2",
+		a.bak3 AS "bak3",
+		a.bak4 AS "bak4",
+		a.bak5 AS "bak5",
+		a.bak6 AS "bak6",
+		a.site_id AS "site.id",
+		a.sort AS "sort"
+	</sql>
+	
+	<sql id="productJoins">
+		LEFT JOIN cms_site s ON a.site_id = s.id
+	</sql>
+    
+	<select id="get" resultType="Product">
+		SELECT 
+			<include refid="productColumns"/>
+		FROM product a
+		<include refid="productJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Product">
+		SELECT 
+			<include refid="productColumns"/>
+		FROM product a
+		<include refid="productJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="updateDate != null and updateDate != ''">
+				AND a.update_date = #{updateDate}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="size != null and size != ''">
+				AND a.size LIKE 
+					<if test="dbName == 'oracle'">'%'||#{size}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{size}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{size},'%')</if>
+			</if>
+			<if test="technology != null and technology != ''">
+				AND a.technology LIKE 
+					<if test="dbName == 'oracle'">'%'||#{technology}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{technology}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{technology},'%')</if>
+			</if>
+			<if test="productCategory != null and productCategory != ''">
+				AND a.product_category = #{productCategory}
+			</if>
+			<if test="productMaterial != null and productMaterial != ''">
+				AND a.product_material = #{productMaterial}
+			</if>
+			<if test="productSpeciescolor != null and productSpeciescolor != ''">
+				AND a.product_speciescolor = #{productSpeciescolor}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Product">
+		SELECT 
+			<include refid="productColumns"/>
+		FROM product a
+		<include refid="productJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 插入时没有hits，更新时有hits -->
+	<insert id="insert">
+		INSERT INTO product(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			full_name,
+			name,
+			introduction,
+			is_top,
+			keyword,
+			market_price,
+			price,
+			sales,
+			weight,
+			size,
+			technology,
+			product_category,
+			product_material,
+			product_speciescolor,
+			is_enable_group,
+			product_group,
+			
+			brand,
+			time_to_market,
+			optimal_processing_method,
+			same_to_market,
+			identification_mark,		
+			identification_category,
+			certification_mark,
+			sales_channel_type,
+			pattern_shape,
+			mosaic_material,
+			freight_number,
+			
+			image_share1,
+			image_share2,
+			image_share3,
+			image_share4,
+			image_emerald1,
+			image_emerald2,
+			image_emerald3,
+			image_emerald4,
+			image_emerald_nephrite1,
+			image_emerald_nephrite2,
+			image_nephrite1,
+			image_nephrite2,
+			image_nephrite3,
+			image_diamonds,
+			
+			bak1,
+			bak2,
+			bak3,
+			bak4,
+			bak5,
+			bak6,
+			site_id,
+			sort
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{fullName},
+			#{name},
+			#{introduction},
+			#{isTop},
+			#{keyword},
+			#{marketPrice},
+			#{price},
+			#{sales},
+			#{weight},
+			#{size},
+			#{technology},
+			#{productCategory},
+			#{productMaterial},
+			#{productSpeciescolor},
+			#{isEnableGroup},
+			#{productGroup},
+			
+			#{brand},
+			#{timeToMarket},
+			#{optimalProcessingMethod},
+			#{sameToMarket},
+			#{identificationMark},
+			#{identificationCategory},
+			#{certificationMark},
+			#{salesChannelType},
+			#{patternShape},
+			#{mosaicMaterial},
+			#{freightNumber},
+			
+			#{imageShare1},
+			#{imageShare2},
+			#{imageShare3},
+			#{imageShare4},
+			#{imageEmerald1},
+			#{imageEmerald2},
+			#{imageEmerald3},
+			#{imageEmerald4},
+			#{imageEmeraldNephrite1},
+			#{imageEmeraldNephrite2},
+			#{imageNephrite1},
+			#{imageNephrite2},
+			#{imageNephrite3},
+			#{imageDiamonds},
+			
+			#{bak1},
+			#{bak2},
+			#{bak3},
+			#{bak4},
+			#{bak5},
+			#{bak6},
+			#{site.id},
+			#{sort}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE product SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			full_name = #{fullName},
+			name = #{name},
+			hits = #{hits},
+			introduction = #{introduction},
+			is_top = #{isTop},
+			keyword = #{keyword},
+			market_price = #{marketPrice},
+			price = #{price},
+			sales = #{sales},
+			weight = #{weight},
+			size = #{size},
+			technology = #{technology},
+			product_category = #{productCategory},
+			product_material = #{productMaterial},
+			product_speciescolor = #{productSpeciescolor},
+			is_enable_group = #{isEnableGroup},
+			product_group = #{productGroup},
+			
+			brand = #{brand} ,
+			time_to_market = #{timeToMarket},
+			optimal_processing_method = #{optimalProcessingMethod},
+			same_to_market = #{sameToMarket},
+			identification_mark = #{identificationMark},	
+			identification_category = #{identificationCategory},
+			certification_mark = #{certificationMark},
+			sales_channel_type = #{salesChannelType},
+			pattern_shape = #{patternShape},
+			mosaic_material = #{mosaicMaterial},
+			freight_number = #{freightNumber},
+			
+			image_share1 = #{imageShare1},
+			image_share2 = #{imageShare2},
+			image_share3 = #{imageShare3},
+			image_share4 = #{imageShare4},
+			image_emerald1 = #{imageEmerald1},
+			image_emerald2 = #{imageEmerald2},
+			image_emerald3 = #{imageEmerald3},
+			image_emerald4 = #{imageEmerald4},
+			image_emerald_nephrite1 = #{imageEmeraldNephrite1},
+			image_emerald_nephrite2 = #{imageEmeraldNephrite2},
+			image_nephrite1 = #{imageNephrite1},
+			image_nephrite2 = #{imageNephrite2},
+			image_nephrite3 = #{imageNephrite3},
+			image_diamonds = #{imageDiamonds},
+			site_id = #{site.id},
+			sort = #{sort}
+			<!-- ,
+			
+			bak1 = #{bak1},
+			bak2 = #{bak2},
+			bak3 = #{bak3},
+			bak4 = #{bak4},
+			bak5 = #{bak5},
+			bak6 = #{bak6} -->
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE product SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,153 @@
+﻿/* CSS Document */
+.footer{
+	width:100%;
+	border-top:#0081CC solid 3px;
+	line-height:24px;
+	background:#F0F0F0;
+}
+
+.lanmu-font{
+	font-size:16px;
+	color:#222222;
+}
+
+.lanmu-list{
+	color:#767676;
+	font-size:14px;
+
+}
+
+.footer-bottom-line{
+	border-top:#D8D8D8 solid 1px;
+	font-size:13px;
+	color:#666;
+	line-height:38px;
+	height:100px;
+  clear:both;
+}
+
+.div-25{
+	width:18%;
+	float:left;
+	margin:10px 0 0 60px;
+}
+
+.div-25 dt{
+	font-size:20px;
+	color:#353535;
+	margin-top:25px;
+	margin-bottom:8px
+}
+
+.div-25 dd{
+	font-size:14px;
+	line-height:26px;
+	color:#666;
+	cursor:pointer;
+}
+
+.div-25 dd a{
+	text-decoration:none;
+}
+
+.div-25 dd a:hover{
+	text-decoration:underline;
+}
+
+.child-dd dd{
+	font-size:12px;
+	background:url(../images/point.gif) 0px 10px no-repeat;
+	padding-left:8px;
+	margin-left:5px;
+}
+
+.footer-bottom-line a{
+	color:#666;
+	text-decoration:none;
+}
+
+.share-dt span,img{
+	float:left;
+	margin:0 7px;
+	line-height:45px;
+}
+
+.footer-bottom-line a:hover{
+	text-decoration:none;
+	font-weight:bold;
+}
+
+.xlwb{
+	background-image:url(../images/sina.gif); 
+	background-repeat:no-repeat; 
+	padding-left:38px; 
+	height:35px;
+}
+.sjmt{
+	background-image:url(../images/weixin.gif);
+	background-repeat:no-repeat; 
+	background-position:0 3px; 
+	padding-left:38px; 
+	height:35px;
+}
+.qqkj{
+	background-image:url(../images/qq.gif);
+	background-repeat:no-repeat; 
+	padding-left:38px; 
+	height:35px;
+}
+.renren{
+	 background-image:url(../images/renren.gif);
+	 background-repeat:no-repeat; 
+	 background-position:0 7px; 
+	 padding-left:38px; 
+	 height:35px;
+}
+
+.zhgy{
+	clear:both; 
+	margin-left:950px;
+	margin-bottom:10px;
+}
+
+.banquan{
+	float:left; 
+	width:100%; 
+	/*	width:45%; 
+	margin-left:25px; */
+	margin-left:220px;
+	margin-top:10px;
+}
+.contactus{
+	float:right; 
+	width:50%; 
+	margin-right:25px; 
+	text-align:right;  
+	margin-top:10px;
+}
+
+.contactus ul li{
+    float:
+}
+
+.contactus a{
+	margin:0 10px;
+}
+
+.beianhao{
+	margin-left:25px;
+}
+.app{
+   background:url(../images/22_22.gif) 7px 4px no-repeat;
+	padding-left:38px; 
+	height:35px;
+}
+.apps{
+   background:url(../images/mobi002.jpg) 7px 4px no-repeat;
+	padding-left:38px; 
+	height:35px;
+}
+
+
+
+
