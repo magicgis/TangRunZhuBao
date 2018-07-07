@@ -73,10 +73,6 @@ public class LoginController extends BaseController{
 		
 		// 如果已经登录，则跳转到管理首页
 		if(principal != null && !principal.isMobileLogin()){
-			/*String url = getOriginalUrl(request);//TODO
-			if(!"".equalsIgnoreCase(url)){
-				return "redirect:" + url;
-			}*/
 			return "redirect:" + adminPath;
 		}
 //		String view;
@@ -93,24 +89,25 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping(value = "${adminPath}/login", method = RequestMethod.POST)
 	public String loginFail(HttpServletRequest request, HttpServletResponse response, Model model) {
-//		String username = request.getParameter("username");
-//		String password = request.getParameter("password");
-//		System.out.println(username);
-//		System.out.println(password);
-//		Subject subject = SecurityUtils.getSubject();
-//		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-//		try {
-//			subject.login(token);
-//		} catch (AuthenticationException e) {
-//			e.printStackTrace();
-//		}
-//		String url = getOriginalUrl(request);//TODO  重定向到自己身上，成为了死循环
-//		String adminPath1 = adminPath + "/";
-//		if(!"".equalsIgnoreCase(url) && !adminPath.equals(url)  && !adminPath1.equals(url)){
-//			return "redirect:" + url;
-//		}
-//		return "modules/sys/sysIndex";
-		
+/* 		这是重写的方法，但是需要放开 spring-context-shiro.xml 中${adminPath}/login = authc，改变为${adminPath}/login = anon 
+ * 		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		System.out.println(username);
+		System.out.println(password);
+		Subject subject = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		try {
+			subject.login(token);
+		} catch (AuthenticationException e) {
+			e.printStackTrace();
+		}
+		String url = getOriginalUrl(request);//TODO  重定向到自己身上，成为了死循环
+		String adminPath1 = adminPath + "/";
+		if(!"".equalsIgnoreCase(url) && !adminPath.equals(url)  && !adminPath1.equals(url)){
+			return "redirect:" + url;
+		}
+		return "modules/sys/sysIndex";
+*/		
 		Principal principal = UserUtils.getPrincipal();
 		
 		// 如果已经登录，则跳转到管理首页
@@ -195,12 +192,6 @@ public class LoginController extends BaseController{
 			}
 			return "redirect:" + adminPath + "/login";
 		}
-		//TODO  重定向到自己身上，成为了死循环
-		String url = getOriginalUrl(request);
-
-		if(!"".equalsIgnoreCase(url)){
-			return "redirect:" + url;
-		}
 		return "modules/sys/sysIndex";
 	}
 	
@@ -243,27 +234,6 @@ public class LoginController extends BaseController{
 			loginFailMap.remove(useruame);
 		}
 		return loginFailNum >= 3;
-	}
-	/**
-	 * 用户原始请求的url
-	 * 2018-07-06
-	 * @return url
-	 */
-	public static String getOriginalUrl(HttpServletRequest request){
-		/* 这是获取用户请求的URL */
-		String url = "";
-		Subject subject = SecurityUtils.getSubject();
-		Session session = subject.getSession(false);
-		if (session != null) {
-			SavedRequest savedRequest = WebUtils.getSavedRequest(request);
-			if (savedRequest != null) {
-				url = savedRequest.getRequestUrl();
-				url = url.substring(request.getContextPath().length());
-			}
-		}
-		//及时清理这个request
-		session.removeAttribute(WebUtils.SAVED_REQUEST_KEY);
-		return url;
 	}
 	
 }

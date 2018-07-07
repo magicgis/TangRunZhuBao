@@ -107,16 +107,18 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 	/**
 	 * 登录成功之后跳转URL
 	 */
-	public String getSuccessUrl() {
-		return super.getSuccessUrl();
+	public String getSuccessUrl(HttpServletRequest request) {
+		return getOriginalUrl(request);
 	}
 	
 	@Override
 	protected void issueSuccessRedirect(ServletRequest request,
 			ServletResponse response) throws Exception {
+		//20180707修改
+		HttpServletRequest request1 = (HttpServletRequest) request;
 //		Principal p = UserUtils.getPrincipal();
 //		if (p != null && !p.isMobileLogin()){
-			 WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
+			 WebUtils.issueRedirect(request, response, getSuccessUrl(request1), null, true);
 //		}else{
 //			super.issueSuccessRedirect(request, response);
 //		}
@@ -143,6 +145,26 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
         request.setAttribute(getFailureKeyAttribute(), className);
         request.setAttribute(getMessageParam(), message);
         return true;
+	}
+	
+	/**
+	 * 用户原始请求的url 20180707
+	 * @param request
+	 * @return
+	 */
+	public static String getOriginalUrl(HttpServletRequest request){
+		/* 这是获取用户请求的URL */
+		String url = "";
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession(false);
+		if (session != null) {
+			SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+			if (savedRequest != null) {
+				url = savedRequest.getRequestUrl();
+				url = url.substring(request.getContextPath().length());
+			}
+		}
+		return url;
 	}
 	
 }
