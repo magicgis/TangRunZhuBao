@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>集团概况</title>
+    <title>${article.title}</title>
     <meta name="decorator" content="cms_default_${site.theme}"/>
 	<meta name="description" content="${site.description}" />
 	<meta name="keywords" content="${site.keywords}" />
