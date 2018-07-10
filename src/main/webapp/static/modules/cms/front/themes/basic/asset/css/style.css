@@ -3838,6 +3838,15 @@ div.column-banner img {
 .Offline-entities .offline-map img {
   max-width: 100%;
 }
+
+.Offline-entities #offline-map{
+    height: 453px;
+    width: 97%;
+    margin: 30px 16px 30px;
+}
+
+
+
 .Offline-entities .offline-address .item {
   width: 47%;
   margin-left: 1.5%;
