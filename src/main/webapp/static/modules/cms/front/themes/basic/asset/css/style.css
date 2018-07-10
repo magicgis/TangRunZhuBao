@@ -4001,6 +4001,11 @@ div.column-banner img {
   line-height: 28px;
   text-indent: 2rem;
 }
+
+.group-profile .team-leader .brand-culture  {
+	padding-bottom: 20px;
+}
+
 .group-profile .time-line {
   width: 100%;
   position: relative;
@@ -4527,11 +4532,7 @@ div.column-banner img {
  } 
 /* 首页“玉器百科”字符串多出来的部分使用省略号代替*******结束******/
 
-
-
-
-
-
-
-
-
+/*去除div的浮动*/
+.remove-floats{
+	overflow:hidden;
+}
