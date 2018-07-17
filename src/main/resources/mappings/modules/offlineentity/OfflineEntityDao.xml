@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.offlineentity.dao.OfflineEntityDao">
+    
+	<sql id="offlineEntityColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.image AS "image",
+		a.name AS "name",
+		a.address AS "address",
+		a.tel AS "tel",
+		a.person AS "person",
+		a.map_x AS "mapX",
+		a.map_y AS "mapY",
+		a.bak1 AS "bak1",
+		a.bak2 AS "bak2",
+		a.bak3 AS "bak3",
+		a.remarks AS "remarks"
+	</sql>
+	
+	<sql id="offlineEntityJoins">
+	</sql>
+    
+	<select id="get" resultType="OfflineEntity">
+		SELECT 
+			<include refid="offlineEntityColumns"/>
+		FROM f_offline_entity a
+		<include refid="offlineEntityJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="OfflineEntity">
+		SELECT 
+			<include refid="offlineEntityColumns"/>
+		FROM f_offline_entity a
+		<include refid="offlineEntityJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="address != null and address != ''">
+				AND a.address LIKE 
+					<if test="dbName == 'oracle'">'%'||#{address}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{address}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{address},'%')</if>
+			</if>
+			<if test="tel != null and tel != ''">
+				AND a.tel = #{tel}
+			</if>
+			<if test="person != null and person != ''">
+				AND a.person = #{person}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="OfflineEntity">
+		SELECT 
+			<include refid="offlineEntityColumns"/>
+		FROM f_offline_entity a
+		<include refid="offlineEntityJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO f_offline_entity(
+			id,
+			image,
+			name,
+			address,
+			tel,
+			person,
+			map_x,
+			map_y,
+			remarks
+		) VALUES (
+			#{id},
+			#{image},
+			#{name},
+			#{address},
+			#{tel},
+			#{person},
+			#{mapX},
+			#{mapY},
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE f_offline_entity SET 	
+			image = #{image},
+			name = #{name},
+			address = #{address},
+			tel = #{tel},
+			person = #{person},
+			map_x = #{mapX},
+			map_y = #{mapY},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE f_offline_entity SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
