@@ -48,7 +48,7 @@ public class FAllianceBusinessController extends BaseController {
 	
 	@RequiresPermissions("alliancebusiness:fAllianceBusiness:view")
 	@RequestMapping(value = {"list", ""})
-	public String list(FAllianceBusiness fAllianceBusiness, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String list(@ModelAttribute("fAllianceBusiness")FAllianceBusiness fAllianceBusiness, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<FAllianceBusiness> page = fAllianceBusinessService.findPage(new Page<FAllianceBusiness>(request, response), fAllianceBusiness); 
 		model.addAttribute("page", page);
 		return "modules/alliancebusiness/fAllianceBusinessList";
@@ -56,14 +56,14 @@ public class FAllianceBusinessController extends BaseController {
 
 	@RequiresPermissions("alliancebusiness:fAllianceBusiness:view")
 	@RequestMapping(value = "form")
-	public String form(FAllianceBusiness fAllianceBusiness, Model model) {
+	public String form(@ModelAttribute("fAllianceBusiness")FAllianceBusiness fAllianceBusiness, Model model) {
 		model.addAttribute("fAllianceBusiness", fAllianceBusiness);
 		return "modules/alliancebusiness/fAllianceBusinessForm";
 	}
 
 	@RequiresPermissions("alliancebusiness:fAllianceBusiness:edit")
 	@RequestMapping(value = "save")
-	public String save(FAllianceBusiness fAllianceBusiness, Model model, RedirectAttributes redirectAttributes) {
+	public String save(@ModelAttribute("fAllianceBusiness")FAllianceBusiness fAllianceBusiness, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, fAllianceBusiness)){
 			return form(fAllianceBusiness, model);
 		}
@@ -74,7 +74,7 @@ public class FAllianceBusinessController extends BaseController {
 	
 	@RequiresPermissions("alliancebusiness:fAllianceBusiness:edit")
 	@RequestMapping(value = "delete")
-	public String delete(FAllianceBusiness fAllianceBusiness, RedirectAttributes redirectAttributes) {
+	public String delete(@ModelAttribute("fAllianceBusiness")FAllianceBusiness fAllianceBusiness, RedirectAttributes redirectAttributes) {
 		fAllianceBusinessService.delete(fAllianceBusiness);
 		addMessage(redirectAttributes, "删除加盟商管理成功");
 		return "redirect:"+Global.getAdminPath()+"/alliancebusiness/fAllianceBusiness/?repage";
