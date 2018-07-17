@@ -7,6 +7,34 @@
     <meta name="decorator" content="cms_default_${site.theme}"/>
 	<meta name="description" content="${site.description}" />
 	<meta name="keywords" content="${site.keywords}" />
+	<script type="text/javascript">
+		/*
+			使用ajax提交form表单
+		*/
+		function alliancebusinessSave(){
+			var usuff = "${fns:getUrlSuffix()}";
+			
+			$.ajax({
+				url:ctx+"/alliancebusinessSave"+usuff,
+				type:'post',
+				data:$("#inputForm").serialize(),
+				success:function(data){
+					var errorCode = data.errorCode;
+					if(errorCode==0){
+						alert("成功！！");
+					}else{
+						alert("失败！！");
+					}
+				},
+		        error:function(){
+		        	alert("错误！！");
+		        }
+		 	});
+			
+			
+		}
+		
+	</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/modules/cms/front/include/title.jsp"%>
@@ -28,18 +56,21 @@
                     </div>
                 </div>
                 <div class="message-panel clearfix">
-                    <div class="message-l">
-                        <input type="text" placeholder="姓名" class="input-control"/>
-                        <input type="text" placeholder="手机" class="input-control"/>
-                        <input type="text" placeholder="电话" class="input-control"/>
-                        <input type="text" placeholder="微信" class="input-control"/>
-                        <input type="text" placeholder="QQ" class="input-control"/>
-                        <input type="text" placeholder="地址" class="input-control"/>
-                    </div>
-                    <div class="message-r">
-                        <textarea name="" id="" cols="30" rows="11" class="textarea-control"></textarea>
-                        <input type="submit" value="提交" class="submit-control"/>
-                    </div>
+                    <form id="inputForm" action="" method="post">
+	                    <div class="message-l">
+	                    	<input id="name" name="name" maxlength="255" placeholder="姓名" class="input-control"/>
+	                    	<input id="telPhone" name="telPhone" maxlength="255" placeholder="手机" class="input-control"/>
+	                    	<input id="mobilePhone" name="mobilePhone" maxlength="255" placeholder="电话" class="input-control"/>
+	                    	<input id="qq" name="qq" maxlength="255" placeholder="微信" class="input-control"/>
+	                    	<input id="wechat" name="wechat" maxlength="255" placeholder="QQ" class="input-control"/>
+	                    	<input id="address" name="address" maxlength="255" placeholder="地址" class="input-control"/>
+	                    </div>
+	                    <div class="message-r">
+	                    	<textarea id="remarks" name="remarks" cols="30" rows="11" class="textarea-control"></textarea>
+	                        <input id="btnSubmit" type="button" value="提交" class="submit-control" onclick="alliancebusinessSave()"/>
+<!-- 	                        <input id="btnSubmit" type="submit" value="提交" class="submit-control"/> -->
+	                    </div>
+                    </form>
                 </div>
             </div>
         </div>

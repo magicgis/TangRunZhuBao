@@ -91,6 +91,7 @@
 	
 	<insert id="insert">
 		INSERT INTO f_alliance_business(
+			id,
 			name,
 			tel_phone,
 			mobile_phone,
@@ -99,6 +100,7 @@
 			address,
 			remarks
 		) VALUES (
+		#{id},
 			#{name},
 			#{telPhone},
 			#{mobilePhone},
