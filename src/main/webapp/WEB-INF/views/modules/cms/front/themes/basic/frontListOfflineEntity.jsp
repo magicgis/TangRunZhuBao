@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <!-- 暂时不用 -->
+   
     <title>线下实体店</title>
     <meta name="decorator" content="cms_default_${site.theme}"/>
 	<meta name="description" content="${site.description}" />

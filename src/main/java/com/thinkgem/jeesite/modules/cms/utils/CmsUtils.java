@@ -22,6 +22,8 @@ import com.thinkgem.jeesite.modules.cms.service.ArticleService;
 import com.thinkgem.jeesite.modules.cms.service.CategoryService;
 import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.service.SiteService;
+import com.thinkgem.jeesite.modules.offlineentity.entity.OfflineEntity;
+import com.thinkgem.jeesite.modules.offlineentity.service.OfflineEntityService;
 import com.thinkgem.jeesite.modules.product.entity.Product;
 import com.thinkgem.jeesite.modules.product.service.ProductService;
 
@@ -42,7 +44,7 @@ public class CmsUtils {
 	private static LinkService linkService = SpringContextHolder.getBean(LinkService.class);
 	
 	private static ProductService productService = SpringContextHolder.getBean(ProductService.class);
-	
+	private static OfflineEntityService offlineEntityService = SpringContextHolder.getBean(OfflineEntityService.class);	
     private static ServletContext context = SpringContextHolder.getBean(ServletContext.class);
 
 	private static final String CMS_CACHE = "cmsCache";
@@ -342,7 +344,31 @@ public class CmsUtils {
 		return productList;
 	}
     
-    
+	/**
+	 * 线下实体店  不用这样写
+	 * @param siteId 站点编号
+	 */
+/*	public static List<OfflineEntity> getOfflineEntity(){
+		
+		OfflineEntity offlineEntity = new OfflineEntity();
+		Page<OfflineEntity> page = new Page<OfflineEntity>(1, -1);
+		page = offlineEntityService.findPage(page, offlineEntity);
+		List<OfflineEntity> offlineEntityList = page.getList(); 
+		return offlineEntityList;
+	}
+	
+ <function>
+    <description>获取线下实体店</description>
+    <name>getOfflineEntity</name>
+    <function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+    <function-signature>com.thinkgem.jeesite.modules.cms.entity.Category getOfflineEntity()</function-signature>
+    <example>${fnc:getOfflineEntity()}</example>  
+  </function>
+  
+
+	*
+	*
+	*/
     
     
     

@@ -15,6 +15,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 public class OfflineEntity extends DataEntity<OfflineEntity> {
 	
 	private static final long serialVersionUID = 1L;
+	/*private Site site;		// 归属站点   没有进行站控制  */
 	private String image;		// 实体店图片
 	private String name;		// 实体店名字
 	private String address;		// 实体店地址
