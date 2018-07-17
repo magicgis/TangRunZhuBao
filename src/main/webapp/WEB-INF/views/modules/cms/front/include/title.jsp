@@ -50,7 +50,7 @@
 <div class="min-site-menu" data-status="0">
     <ul>
         <li><a href="${ctx}/index-1${fns:getUrlSuffix()}">首页</a></li>
-        <li><a href="">产品专栏</a></li>
+        <li><a href="${ctx}/frontProductList${fns:getUrlSuffix()}">产品专栏</a></li>
         
         <c:forEach items="${fnc:getMainNavList(site.id)}" var="category" varStatus="status">
 			<c:if test="${status.index lt 10}">

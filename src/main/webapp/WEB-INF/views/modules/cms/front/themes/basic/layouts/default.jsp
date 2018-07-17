@@ -89,13 +89,22 @@
 	
 	<div class="footer">
 	    <p class="bottom-nav">
-	        <a href="">网站首页</a><span class="line">|</span>
-	        <a href="">公司简介</a><span class="line">|</span>
-	        <a href="">产品展示</a><span class="line">|</span>
-	        <a href="">玉器师</a><span class="line">|</span>
+	        <a href="${ctx}/index-1${fns:getUrlSuffix()}">网站首页</a><span class="line">|</span>
+	        <a href="${ctx}/frontProductList${fns:getUrlSuffix()}">产品展示</a><span class="line">|</span>
+	        <c:forEach items="${fnc:getMainNavList(site.id)}" var="category" varStatus="status">
+				<c:if test="${status.index lt 10}">
+					<c:choose>
+						<c:when test="${status.index eq 4}"><a href="${category.url}">${category.name}</a></c:when>
+						<c:otherwise><a href="${category.url}">${category.name}</a><span class="line">|</span></c:otherwise>
+					</c:choose>
+		    	</c:if>
+		    	
+	    	</c:forEach>
+	        
+	       <!--  <a href="">玉器师</a><span class="line">|</span>
 	        <a href="">联系我们</a><span class="line">|</span>
 	        <a href="">真伪查询</a><span class="line">|</span>
-	        <a href="">友情链接</a>
+	        <a href="">友情链接</a> -->
 	    </p>
 	    <p class="copyright">©2018-2030 版权所有：香港唐润珠宝集团有限公司（技术支持）备案号:粤ICP备17107378号-2</p>
 	</div>
