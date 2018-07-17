@@ -7,13 +7,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.ui.Model;
+
 import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.config.Global;
-import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.mapper.JsonMapper;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.CacheUtils;
 import com.thinkgem.jeesite.common.utils.SpringContextHolder;
+import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
 import com.thinkgem.jeesite.modules.cms.entity.Category;
 import com.thinkgem.jeesite.modules.cms.entity.Link;
@@ -22,14 +26,9 @@ import com.thinkgem.jeesite.modules.cms.service.ArticleService;
 import com.thinkgem.jeesite.modules.cms.service.CategoryService;
 import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.service.SiteService;
-import com.thinkgem.jeesite.modules.offlineentity.entity.OfflineEntity;
 import com.thinkgem.jeesite.modules.offlineentity.service.OfflineEntityService;
 import com.thinkgem.jeesite.modules.product.entity.Product;
 import com.thinkgem.jeesite.modules.product.service.ProductService;
-
-import javax.servlet.ServletContext;
-
-import org.springframework.ui.Model;
 
 /**
  * 内容管理工具类
@@ -44,7 +43,6 @@ public class CmsUtils {
 	private static LinkService linkService = SpringContextHolder.getBean(LinkService.class);
 	
 	private static ProductService productService = SpringContextHolder.getBean(ProductService.class);
-	private static OfflineEntityService offlineEntityService = SpringContextHolder.getBean(OfflineEntityService.class);	
     private static ServletContext context = SpringContextHolder.getBean(ServletContext.class);
 
 	private static final String CMS_CACHE = "cmsCache";
