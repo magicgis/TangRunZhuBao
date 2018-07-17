@@ -32,11 +32,12 @@
                         <input type="text" placeholder="姓名" class="input-control"/>
                         <input type="text" placeholder="手机" class="input-control"/>
                         <input type="text" placeholder="电话" class="input-control"/>
+                        <input type="text" placeholder="微信" class="input-control"/>
                         <input type="text" placeholder="QQ" class="input-control"/>
                         <input type="text" placeholder="地址" class="input-control"/>
                     </div>
                     <div class="message-r">
-                        <textarea name="" id="" cols="30" rows="10" class="textarea-control"></textarea>
+                        <textarea name="" id="" cols="30" rows="11" class="textarea-control"></textarea>
                         <input type="submit" value="提交" class="submit-control"/>
                     </div>
                 </div>
