@@ -1,8 +1,13 @@
 package com.thinkgem.jeesite.modules.offlineentity.web.front;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.engine.impl.util.json.JSONArray;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.JsonUtil;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Site;
 import com.thinkgem.jeesite.modules.cms.service.SiteService;
@@ -74,6 +80,19 @@ public class FrontOfflineEntityController extends BaseController{
 		Page<OfflineEntity> page = offlineEntityService.findPage(pages, offlineEntity);
 		model.addAttribute("page", page);
 		
+		//为地图插件添加标注数据
+		List<Class> claList= new ArrayList<Class>();
+		String json=new String();
+		try {
+			json = JsonUtil.simpleListToJsonStr(page.getList(), claList);
+		} catch (IllegalArgumentException e) {
+			// TODO 
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO
+			e.printStackTrace();
+		}
+		model.addAttribute("pageList", json);
 		return "modules/cms/front/themes/basic/frontListOfflineEntityData";
 	}
 	

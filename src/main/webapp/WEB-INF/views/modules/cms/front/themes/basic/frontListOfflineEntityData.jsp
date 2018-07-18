@@ -7,7 +7,7 @@
          <script type="text/javascript">
 			// 百度地图API功能
 			var map = new BMap.Map("offline-map");    // 创建Map实例
-			map.centerAndZoom(new BMap.Point(113.65,34.76), 15);  // 初始化地图,设置中心点坐标和地图级别
+			map.centerAndZoom(new BMap.Point(113.65,34.76), 11);  // 初始化地图,设置中心点坐标和地图级别
 			
 			//添加地图类型控件
 			map.addControl(new BMap.MapTypeControl({
@@ -15,21 +15,24 @@
 		            BMAP_NORMAL_MAP,
 		            BMAP_HYBRID_MAP
 		        ]}));	  
-			//map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+			map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
 			map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-			
+		
 			// 编写自定义函数,创建标注
 			function addMarker(point){
 			  var marker = new BMap.Marker(point);
 			  map.addOverlay(marker);
 			}
 			
-			//从后台获取数据放到map中
+			//从数据库获取数据
+			var offlineEntityData  = ${pageList};
+			//console.log(offlineEntityData);
+			$.each( offlineEntityData, function( index, offlineEntity) {
+				var point = new BMap.Point(offlineEntity.mapX,offlineEntity.mapY);
+				addMarker(point);
+			}); 
 			
-			
-			
-			/* 
-			// 随机向地图添加25个标注
+			/* // 随机向地图添加25个标注
 			var bounds = map.getBounds();
 			var sw = bounds.getSouthWest();
 			var ne = bounds.getNorthEast();
@@ -39,6 +42,7 @@
 				var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
 				addMarker(point);
 			} */
+			
 		</script>
 		<ul class="offline-address clearfix">
 			
@@ -59,6 +63,7 @@
            	</c:forEach>
            	
            	<!--
+			
 			<li class="item">
 				<span class="item-img"><img alt="" src="/TangRunZhuBao/userfiles/1/images/cms/article/2018/06/addimg.png" /> </span>
 				<div class="item-info">

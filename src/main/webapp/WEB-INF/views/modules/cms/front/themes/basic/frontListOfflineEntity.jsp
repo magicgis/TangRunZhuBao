@@ -8,7 +8,7 @@
     <meta name="decorator" content="cms_default_${site.theme}"/>
 	<meta name="description" content="${site.description}" />
 	<meta name="keywords" content="${site.keywords}" />
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=HgTNrnm3WtDMK8EncNsbWdfOekLNN1u5"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=HgTNrnm3WtDMK8EncNsbWdfOekLNN1u5"></script>
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
