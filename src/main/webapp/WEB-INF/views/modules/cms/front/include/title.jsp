@@ -43,6 +43,12 @@
 		    		</li>
 		    	</c:if>
 	    	</c:forEach>
+       	 	<li>
+                <a href="${ctx}/frontOfflineEntityList${fns:getUrlSuffix()}" title="线下实体店">
+                    <span class="title">线下实体店</span>
+                    <span class="second"><i class="text">OFFLINE&nbsp;ENTITY</i></span>
+                </a>
+            </li>
          </ul>
      </div>
  </div>
@@ -57,7 +63,7 @@
 	    		<li><a href="${category.url}">${category.name}</a></li>
 	    	</c:if>
     	</c:forEach>
-        
+        <li><a href="${ctx}/frontOfflineEntityList${fns:getUrlSuffix()}">线下实体店</a></li>
 <%--    <li><a href="">关于我们</a></li>
         <li><a href="">联系我们</a></li>
         <li><a href="${ctx}/frontJadeEncyclopedia">玉器百科</a></li>

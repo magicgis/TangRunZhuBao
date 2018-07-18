@@ -100,6 +100,8 @@
 		    	</c:if>
 		    	
 	    	</c:forEach>
+	        <a href="${ctx}/frontOfflineEntityList${fns:getUrlSuffix()}">产品展示</a>
+	        
 	        
 	       <!--  <a href="">玉器师</a><span class="line">|</span>
 	        <a href="">联系我们</a><span class="line">|</span>

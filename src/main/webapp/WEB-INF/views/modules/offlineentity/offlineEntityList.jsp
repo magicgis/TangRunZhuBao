@@ -25,16 +25,16 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>实体店名字：</label>
+			<li><label>名字：</label>
 				<form:input path="name" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>实体店地址：</label>
+			<li><label>地址：</label>
 				<form:input path="address" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
-			<li><label>实体店电话：</label>
+			<li><label>电话：</label>
 				<form:input path="tel" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
-			<li><label>实体店联系人：</label>
+			<li><label>联系人：</label>
 				<form:input path="person" htmlEscape="false" maxlength="50" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
@@ -45,22 +45,24 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>实体店图片</th>
-				<th>实体店名字</th>
-				<th>实体店地址</th>
-				<th>实体店电话</th>
-				<th>实体店联系人</th>
-				<th>实体店横坐标</th>
-				<th>实体店纵坐标</th>
+				<th>图片</th>
+				<th>名字</th>
+				<th>地址</th>
+				<th>电话</th>
+				<th>联系人</th>
+				<th>位置横坐标</th>
+				<th>位置纵坐标</th>
 				<shiro:hasPermission name="offlineentity:offlineEntity:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach items="${page.list}" var="offlineEntity">
 			<tr>
-				<td><a href="${ctx}/offlineentity/offlineEntity/form?id=${offlineEntity.id}">
-					${offlineEntity.image}
-				</a></td>
+				<td style="width:205px;">
+					<a href="${ctx}/offlineentity/offlineEntity/form?id=${offlineEntity.id}">
+						<img alt="${offlineEntity.name}" src="${offlineEntity.image}" style="max-width:200px;max-height:200px;border:0;padding:3px;margin-right: -100px;">
+					</a>
+				</td>
 				<td>
 					${offlineEntity.name}
 				</td>
@@ -81,7 +83,7 @@
 				</td>
 				<shiro:hasPermission name="offlineentity:offlineEntity:edit"><td>
     				<a href="${ctx}/offlineentity/offlineEntity/form?id=${offlineEntity.id}">修改</a>
-					<a href="${ctx}/offlineentity/offlineEntity/delete?id=${offlineEntity.id}" onclick="return confirmx('确认要删除该线下实体店管理吗？', this.href)">删除</a>
+					<a href="${ctx}/offlineentity/offlineEntity/delete?id=${offlineEntity.id}" onclick="return confirmx('确认要删除该线下实体店信息吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

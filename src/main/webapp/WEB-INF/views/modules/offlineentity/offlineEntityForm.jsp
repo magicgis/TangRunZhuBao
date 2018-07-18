@@ -32,51 +32,53 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="offlineEntity" action="${ctx}/offlineentity/offlineEntity/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
-		<sys:message content="${message}"/>		
+		<sys:message content="${message}"/>	
+			
 		<div class="control-group">
-			<label class="control-label">实体店图片：</label>
+			<label class="control-label">上传店面图：</label>
 			<div class="controls">
-				<form:input path="image" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:hidden id="image" path="image" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="image" type="images" uploadPath="/offlineEntity" selectMultiple="false"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">实体店名字：</label>
+			<label class="control-label">名字：</label>
 			<div class="controls">
-				<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">实体店地址：</label>
+			<label class="control-label">地址：</label>
 			<div class="controls">
-				<form:input path="address" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:input path="address" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">实体店电话：</label>
+			<label class="control-label">电话：</label>
 			<div class="controls">
-				<form:input path="tel" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="tel" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">实体店联系人：</label>
+			<label class="control-label">联系人：</label>
 			<div class="controls">
-				<form:input path="person" htmlEscape="false" maxlength="50" class="input-xlarge "/>
+				<form:input path="person" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">实体店横坐标：</label>
+			<label class="control-label">横坐标：</label>
 			<div class="controls">
-				<form:input path="mapX" htmlEscape="false" class="input-xlarge "/>
+				<form:input path="mapX" htmlEscape="false" class="input-xlarge required"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">实体店纵坐标：</label>
+			<label class="control-label">纵坐标：</label>
 			<div class="controls">
-				<form:input path="mapY" htmlEscape="false" class="input-xlarge "/>
+				<form:input path="mapY" htmlEscape="false" class="input-xlarge required"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">remarks：</label>
+			<label class="control-label">备注：</label>
 			<div class="controls">
 				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
 			</div>
