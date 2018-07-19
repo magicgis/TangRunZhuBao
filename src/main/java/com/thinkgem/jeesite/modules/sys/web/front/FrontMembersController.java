@@ -36,20 +36,6 @@ public class FrontMembersController extends BaseController {
 	private SessionDAO sessionDAO;
 	
 	/**
-	 * 个人中心
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "frontMemberCenterPersonalInfo")
-	public String frontMemberCenterPersonalInfo(HttpServletRequest request, HttpServletResponse response,Model model) {
-		Site site = CmsUtils.getSite(Site.defaultSiteId());
-		model.addAttribute("site", site);
-		model.addAttribute("isIndex", true);
-		
-		return "modules/cms/front/themes/basic/frontViewArticleMemberCenterPersonalInfo";
-	}
-
-	/**
 	 * 注册
 	 * @param model
 	 * @return
@@ -78,20 +64,64 @@ public class FrontMembersController extends BaseController {
 	}
 
 	/**
-	 * 我的收藏
+	 * 个人中心
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "frontMemberCenterMyCollection")
-	public String frontMemberCenterMyCollection(Model model) {
+	@RequestMapping(value = "memberCenter")
+	public String memberCenter(HttpServletRequest request, HttpServletResponse response,Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
 		
-		return "modules/cms/front/themes/basic/frontViewArticleMemberCenterMyCollection";
+		
+		
+		
+		return "modules/cms/front/themes/basic/memberCenter";
 	}
 	
+	/**
+	 * 个人中心
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "frontMemberCenterPersonalInfoData")
+	public String frontMemberCenterPersonalInfo(HttpServletRequest request, HttpServletResponse response,Model model) {
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+		
+		return "modules/cms/front/themes/basic/memberCenterPersonalInfoData";
+	}
 	
+	/**
+	 * 重置密码
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "frontMemberCenterResetPassData")
+	public String frontMemberCenterResetPassData(Model model) {
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+		
+		return "modules/cms/front/themes/basic/memberCenterResetPassData";
+	}
+	
+	/**
+	 * 我的收藏
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "frontMemberCenterMyCollectionData")
+	public String frontMemberCenterMyCollectionData(Model model) {
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+		
+		return "modules/cms/front/themes/basic/memberCenterMyCollectionData";
+	}
+
 	/**
 	 * 帮助中心
 	 * @param model
