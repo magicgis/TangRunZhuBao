@@ -154,7 +154,7 @@
 				       <!--  <a href="" class="refresh"><i class="ico"></i>换一组</a> -->
 				    </div>
 				    <ul class="you-like-list clearfix">
-			        	<!-- 使用工具类的热门产品   8个产品 -->
+			        	<!-- 使用工具类的热门产品   3个产品 -->
                         <c:forEach items="${fnp:getHotProductList(site.id,'0',3)}" var="hotProduct">
                             <li class="item">
 				                <div class="img">

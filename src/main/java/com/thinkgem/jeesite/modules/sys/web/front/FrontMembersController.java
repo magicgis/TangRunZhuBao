@@ -127,11 +127,23 @@ public class FrontMembersController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "frontMemberCenterResetPassData")
-	public String frontMemberCenterResetPassData(Model model) {
+	public String frontMemberCenterResetPassData(String oldPassword, String newPassword,Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
 		
+		User user = UserUtils.getUser();
+		if (StringUtils.isNotBlank(oldPassword) && StringUtils.isNotBlank(newPassword)){
+			if (SystemService.validatePassword(oldPassword, user.getPassword())){
+				systemService.updatePasswordById(user.getId(), user.getLoginName(), newPassword);
+				//model.addAttribute("message", "修改密码成功");
+			}else{
+				//model.addAttribute("message", "修改密码失败，旧密码错误");
+			}
+		}
+		model.addAttribute("user", user);
+		
+		//return "redirect:" + frontPath + "frontMemberCenter"+urlSuffix;
 		return "modules/cms/front/themes/basic/memberCenterResetPassData";
 	}
 	
