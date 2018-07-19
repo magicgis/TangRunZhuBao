@@ -151,36 +151,21 @@
 				<div class="guess-you-like">
 				    <div class="guess-title">
 				        <span class="name">猜你喜欢</span>
-				        <a href="" class="refresh"><i class="ico"></i>换一组</a>
+				       <!--  <a href="" class="refresh"><i class="ico"></i>换一组</a> -->
 				    </div>
 				    <ul class="you-like-list clearfix">
-				        <li class="item">
+			        	<!-- 使用工具类的热门产品   8个产品 -->
+                        <c:forEach items="${fnp:getHotProductList(site.id,'0',3)}" var="hotProduct">
+                            <li class="item">
 				                <div class="img">
-				                    <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(36).jpg" alt="">
+				                    <img src="${hotProduct.imageEmeraldNephrite2}" alt="">
 				                </div>
 				                <div class="handel">
-				                    <span class="name">和田玉竹报平安</span>
-				                     <a href="" class="look">查看详情</a>
+				                    <span class="name">${hotProduct.name}</span>
+				                    <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${hotProduct.id}" class="look">查看详情</a>
 				                </div>
-				        </li>
-				        <li class="item">
-				            <div class="img">
-				                <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(37).jpg" alt="">
-				            </div>
-				            <div class="handel">
-				                <span class="name">和田玉竹报平安</span>
-				                <a href="" class="look">查看详情</a>
-				            </div>
-				        </li>
-				        <li class="item">
-				            <div class="img">
-				                <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(38).jpg" alt="">
-				            </div>
-				            <div class="handel">
-				                <span class="name">和田玉竹报平安</span>
-				                <a href="" class="look">查看详情</a>
-				            </div>
-				        </li>
+					        </li>
+                    	</c:forEach>
 				    </ul>
 				</div>
 
