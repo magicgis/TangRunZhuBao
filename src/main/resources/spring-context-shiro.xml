@@ -21,7 +21,7 @@
 				${adminPath}/login = authc
 				${adminPath}/cas = cas
 				${adminPath}/logout = logout
-				${frontPath}/frontMemberCenterPersonalInfo*=authc
+				${frontPath}/frontMemberCenter*=authc
 				${frontPath}/frontMemberCenterMyCollection*=authc
 				${adminPath}/** = user
 				/act/editor/** = user

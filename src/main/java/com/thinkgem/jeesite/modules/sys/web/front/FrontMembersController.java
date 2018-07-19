@@ -11,11 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.security.shiro.session.SessionDAO;
+import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Site;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
 /**
  * 用户Controller
@@ -68,14 +72,24 @@ public class FrontMembersController extends BaseController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "memberCenter")
-	public String memberCenter(HttpServletRequest request, HttpServletResponse response,Model model) {
+	@RequestMapping(value = "frontMemberCenter")
+	public String memberCenter(User user,HttpServletRequest request, HttpServletResponse response,Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
 		
-		
-		
+		//首次个人信息页面
+		User currentUser = UserUtils.getUser();
+		if ((user != null) && StringUtils.isNotBlank(user.getName())){//加入了user的判断
+			currentUser.setEmail(user.getEmail());
+			currentUser.setPhone(user.getPhone());
+			currentUser.setMobile(user.getMobile());
+			currentUser.setRemarks(user.getRemarks());
+			currentUser.setPhoto(user.getPhoto());
+			systemService.updateUserInfo(currentUser);
+			//model.addAttribute("message", "保存用户信息成功");
+		}
+		model.addAttribute("user", currentUser);
 		
 		return "modules/cms/front/themes/basic/memberCenter";
 	}
@@ -84,18 +98,31 @@ public class FrontMembersController extends BaseController {
 	 * 个人中心
 	 * @param model
 	 * @return
-	 */
+	
 	@RequestMapping(value = "frontMemberCenterPersonalInfoData")
-	public String frontMemberCenterPersonalInfo(HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String frontMemberCenterPersonalInfo(User user,HttpServletRequest request, HttpServletResponse response,Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
 		
+		//首次个人信息页面
+		User currentUser = UserUtils.getUser();
+		if ((user != null) && StringUtils.isNotBlank(user.getName())){//加入了user的判断
+			currentUser.setEmail(user.getEmail());
+			currentUser.setPhone(user.getPhone());
+			currentUser.setMobile(user.getMobile());
+			currentUser.setRemarks(user.getRemarks());
+			currentUser.setPhoto(user.getPhoto());
+			systemService.updateUserInfo(currentUser);
+			//model.addAttribute("message", "保存用户信息成功");
+		}
+		model.addAttribute("user", currentUser);
+		
 		return "modules/cms/front/themes/basic/memberCenterPersonalInfoData";
 	}
-	
+	 */
 	/**
-	 * 重置密码
+	 * 修改密码
 	 * @param model
 	 * @return
 	 */

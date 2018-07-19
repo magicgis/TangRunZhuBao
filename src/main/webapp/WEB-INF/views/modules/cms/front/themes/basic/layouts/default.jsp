@@ -21,7 +21,7 @@
 	        <div class="site-nav-r fr">
 	            <a href="${ctx}/frontMemberCenterMyCollection${fns:getUrlSuffix()}" class="t-nav">我的收藏</a>
 	            <span class="line">|</span>
-	            <a href="${ctx}/memberCenter${fns:getUrlSuffix()}" class="t-nav">会员中心</a>
+	            <a href="${ctx}/frontMemberCenter${fns:getUrlSuffix()}" class="t-nav">会员中心</a>
 	            <span class="line">|</span>
 	            <a href="${ctx}/frontMemberHelpCenterData${fns:getUrlSuffix()}" class="t-nav">帮助中心</a>
 	        </div>

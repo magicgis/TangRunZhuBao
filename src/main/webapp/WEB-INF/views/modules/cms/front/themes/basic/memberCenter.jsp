@@ -10,17 +10,41 @@
 	<meta name="description" content="${site.description}" />
 	<meta name="keywords" content="${site.keywords}" />
 	<script type="text/javascript">
-		/*  点击“个人信息管理”导航之后颜色变色    */
+		/*  点击“个人信息管理”导航之后颜色变色   */
 	    $(function(){
 	        $(".personal-center-side .side-menu .side-menu-list dd a").click(function(){
 	            $(".personal-center-side .side-menu .side-menu-list dd a").removeClass('active');
 	            $(this).addClass('active');
-	            
-	            
-	            
-	            
 	        })
 	    })
+	    
+	    
+	    function changeMemberCenter(flag){
+			
+			var usuff = "${fns:getUrlSuffix()}";
+			var action = "";
+			if(flag==2){//修改密码
+				action = ctx+"/frontMemberCenterResetPassData"+usuff;
+			}else if(flag==3){//我的收藏
+				action = ctx+"/frontMemberCenterMyCollectionData"+usuff;
+			}else if(flag==1){//个人信息
+				action = ctx+"/frontMemberCenter"+usuff;
+				window.location.href=action;
+				return;
+			}else{//如果为空则直接返回
+				return false;
+			}
+			
+			$.ajax({
+			   type: "POST",
+			   url: action,
+			   //data: $("#myForm").serialize(),
+			   success: function(msg){
+				   $(".personal-center-box").html(msg);
+			   }
+			});
+			return false;
+		}
 	</script>
 	
 </head>
@@ -42,25 +66,123 @@
                         <div class="face">
                             <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/face.jpg" alt="">
                         </div>
-                        <p class="username">用户名：1527856895</p>
-                        <p class="username">昵称：凤吹落叶</p>
+                        <p class="username">用户名：${user.loginName }</p>
+                        <p class="username">昵称：${user.name }</p>
                     </div>
                     <dl class="side-menu-list">
                         <dt>
                             <i class="ico"></i>
                            	 个人信息管理
                         </dt>
-                        <dd><a href="javascript:;" class="active"><i class="arrow"></i>个人信息</a></dd>
-                        <dd><a href="javascript:;"><i class="arrow"></i>修改密码</a></dd>
-                        <dd><a href="javascript:;"><i class="arrow"></i>我的收藏</a></dd>
+                        <dd><a href="javascript:changeMemberCenter(1);" class="active"><i class="arrow"></i>个人信息</a></dd>
+                        <dd><a href="javascript:changeMemberCenter(2);"><i class="arrow"></i>修改密码</a></dd>
+                        <dd><a href="javascript:changeMemberCenter(3);"><i class="arrow"></i>我的收藏</a></dd>
                     </dl>
                 </div>
             </div>
             
-            
-            
+            <!-- 三个模块公用的地方;  首次到用户个人信息页面-->
             <div class="personal-center-box">
-                
+                <div class="column-nav">
+				    <a href="">会员中心</a>
+				    	<span class="ico"> -&gt; </span>
+				    <a href="">个人信息</a>
+				</div>
+				
+				<div class="personal-info">
+				    <div class="title">
+				        <span class="name">个人信息</span>
+				        <span class="subtitle">尽量填写完整信息，方便店家与你联系！</span>
+				    </div>
+				    <div class="personal-form clearfix">
+				        
+				       	<form id="myForm" action="${ctx}/frontMemberCenter${fns:getUrlSuffix()}" method="post">
+					        <div class="form-column-control clearfix">
+					            <div class="name">姓名：</div>
+					            <div class="input-div-wrap">
+					            	<!-- 隐藏域 -->
+					            	<input type="hidden" id="photo" name="photo" value="${user.photo}">
+					            	<input type="hidden" id="phone" name="phone" value="${user.phone}">
+					            	<input type="hidden" id="remarks" name="remarks" value="${user.remarks}">
+					            	
+					                <input type="text" id="name" name="name" class="input-control" value="${user.name}">
+					            </div>
+					        </div>
+					        <div class="form-column-control clearfix">
+					            <div class="name">邮箱地址：</div>
+					            <div class="input-div-wrap">
+					                <input type="text" id="email" name="email" class="input-control" value="${user.email}">
+					            </div>
+					        </div>
+					        <div class="form-column-control clearfix">
+					            <div class="name">手机号码：</div>
+					            <div class="input-div-wrap">
+					                <input type="text" id="mobile" name="mobile" class="input-control" value="${user.mobile}">
+					            </div>
+					        </div>
+					        <!-- <div class="form-column-control clearfix">
+					            <div class="name">注册地址：</div>
+					            <div class="input-div-wrap">
+					                <select name="" id="" class="select-control">
+					                    <option value="">请选择省</option>
+					                </select>
+					                <select name="" id="" class="select-control">
+					                    <option value="">请选择市</option>
+					                </select>
+					                <select name="" id="" class="select-control">
+					                    <option value="">请选择区</option>
+					                </select>
+					            </div>
+					        </div>
+					        <div class="form-column-control clearfix">
+					            <div class="name">详细地址：</div>
+					            <div class="input-div-wrap">
+					                <input type="text" class="input-control">
+					            </div>
+					        </div> -->
+					        <div class="submit-wrap clearfix">
+					            <input type="submit"  class="submit-control" value="保存" />
+					        </div>
+				        
+				        </form>
+				        
+				    </div>
+				</div>
+				<div class="guess-you-like">
+				    <div class="guess-title">
+				        <span class="name">猜你喜欢</span>
+				        <a href="" class="refresh"><i class="ico"></i>换一组</a>
+				    </div>
+				    <ul class="you-like-list clearfix">
+				        <li class="item">
+				                <div class="img">
+				                    <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(36).jpg" alt="">
+				                </div>
+				                <div class="handel">
+				                    <span class="name">和田玉竹报平安</span>
+				                     <a href="" class="look">查看详情</a>
+				                </div>
+				        </li>
+				        <li class="item">
+				            <div class="img">
+				                <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(37).jpg" alt="">
+				            </div>
+				            <div class="handel">
+				                <span class="name">和田玉竹报平安</span>
+				                <a href="" class="look">查看详情</a>
+				            </div>
+				        </li>
+				        <li class="item">
+				            <div class="img">
+				                <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(38).jpg" alt="">
+				            </div>
+				            <div class="handel">
+				                <span class="name">和田玉竹报平安</span>
+				                <a href="" class="look">查看详情</a>
+				            </div>
+				        </li>
+				    </ul>
+				</div>
 
             </div>
         </div>
