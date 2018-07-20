@@ -21,6 +21,7 @@ import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Site;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.product.service.UserProductService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
@@ -42,6 +43,8 @@ public class FrontMembersController extends BaseController {
 	private SystemService systemService;
 	@Autowired
 	private SessionDAO sessionDAO;
+	@Autowired
+	private UserProductService userProductService;
 	
 	/**
 	 * 注册
