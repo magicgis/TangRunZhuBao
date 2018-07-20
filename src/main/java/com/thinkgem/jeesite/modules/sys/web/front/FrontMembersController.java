@@ -184,17 +184,4 @@ public class FrontMembersController extends BaseController {
 		return "modules/cms/front/themes/basic/memberCenterMyCollectionData";
 	}
 
-	/**
-	 * 帮助中心
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "frontMemberHelpCenterData")
-	public String frontUserHelpCenterData(Model model) {
-		Site site = CmsUtils.getSite(Site.defaultSiteId());
-		model.addAttribute("site", site);
-		model.addAttribute("isIndex", true);
-		
-		return "modules/cms/front/themes/basic/frontViewArticleHelpCenter";
-	}
 }

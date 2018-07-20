@@ -1,30 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/modules/cms/front/include/taglib.jsp"%>
 
-<script type="text/javascript">
-	function submitPassword(){
-		var usuff = "${fns:getUrlSuffix()}";
-		
-		$.ajax({
-		   type: "POST",
-		   url: ctx+"/frontMemberCenterResetPassData"+usuff,
-		   dataType: 'text',//文本的方式
-		   data: $("#myForm").serialize(),
-		   success: function(errorCode){
-			   if(errorCode==0){
-				   alert("修改密码成功!");
-			   }else if(errorCode==1){
-				   alert("修改密码失败!");
-			   }else{
-				   alert("原密码或者新密码不可为空!");
+	<script type="text/javascript">
+		function submitPassword(){
+			var usuff = "${fns:getUrlSuffix()}";
+			
+			$.ajax({
+			   type: "POST",
+			   url: ctx+"/frontMemberCenterResetPassData"+usuff,
+			   dataType: 'text',//文本的方式
+			   data: $("#myForm").serialize(),
+			   success: function(errorCode){
+				   if(errorCode==0){
+					   alert("修改密码成功!");
+					   window.location.reload();//刷新当前页面
+				   }else if(errorCode==1){
+					   alert("修改密码失败!");
+				   }else{
+					   alert("原密码或者新密码不可为空!");
+				   }
+				   
 			   }
-			   
-		   }
-		});
-	}
-</script>
-
-
+			});
+		}
+	</script>
+	
 	<div class="column-nav">
 	    <a href="">会员中心</a>
 	    	<span class="ico"> -&gt; </span>

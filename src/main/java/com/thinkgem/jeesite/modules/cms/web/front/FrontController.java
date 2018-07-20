@@ -417,12 +417,26 @@ public class FrontController extends BaseController{
     /*加盟商信息提交*/
     @ResponseBody
 	@RequestMapping(value = "alliancebusinessSave")
-	public Map<String,Object> alliancebusinessSave(AllianceBusiness allianceBusiness) {
-		Map<String,Object> resultMap = new HashMap<String,Object>();
+	public String alliancebusinessSave(AllianceBusiness allianceBusiness) {
+		/*Map<String,Object> resultMap = new HashMap<String,Object>();*/
 		allianceBusinessService.save(allianceBusiness);
-		resultMap.put("errorCode", 0);
-		return resultMap;
+		/*resultMap.put("errorCode", 0);*/
+		
+		return "0";
 	}
     
+	/**
+	 * 帮助中心
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "frontMemberHelpCenterData")
+	public String frontUserHelpCenterData(Model model) {
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+		
+		return "modules/cms/front/themes/basic/frontViewArticleHelpCenter";
+	}
     
 }

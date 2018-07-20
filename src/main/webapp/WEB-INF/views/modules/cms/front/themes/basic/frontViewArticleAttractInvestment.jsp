@@ -17,21 +17,19 @@
 			$.ajax({
 				url:ctx+"/alliancebusinessSave"+usuff,
 				type:'post',
+				dataType:'text',
 				data:$("#inputForm").serialize(),
-				success:function(data){
-					var errorCode = data.errorCode;
+				success:function(errorCode){
 					if(errorCode==0){
-						alert("成功！！");
+						alert("添加信息成功！！");
 					}else{
-						alert("失败！！");
+						alert("添加信息失败！！");
 					}
 				},
 		        error:function(){
-		        	alert("错误！！");
+		        	alert("出现异常，请重新输入信息！");
 		        }
 		 	});
-			
-			
 		}
 		
 	</script>
