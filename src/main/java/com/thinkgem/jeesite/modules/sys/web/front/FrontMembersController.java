@@ -3,6 +3,9 @@
  */
 package com.thinkgem.jeesite.modules.sys.web.front;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.security.shiro.session.SessionDAO;
@@ -122,30 +126,49 @@ public class FrontMembersController extends BaseController {
 	}
 	 */
 	/**
-	 * 修改密码
+	 * 进到“修改密码”页面
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "frontMemberCenterResetPassData")
-	public String frontMemberCenterResetPassData(String oldPassword, String newPassword,Model model) {
+	@RequestMapping(value = "reachFrontMemberCenterResetPass")
+	public String reachFrontMemberCenterResetPass(Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
 		
+		return "modules/cms/front/themes/basic/memberCenterResetPassData";
+	}
+	/**
+	 * 修改密码
+	 * @param oldPassword
+	 * @param newPassword
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "frontMemberCenterResetPassData")
+	public String frontMemberCenterResetPassData(String oldPassword, String newPassword,Model model) {
+		/*Map<String, Object> returnMap = new HashMap<String, Object>();*/
+		String state = "2";
 		User user = UserUtils.getUser();
 		if (StringUtils.isNotBlank(oldPassword) && StringUtils.isNotBlank(newPassword)){
 			if (SystemService.validatePassword(oldPassword, user.getPassword())){
 				systemService.updatePasswordById(user.getId(), user.getLoginName(), newPassword);
-				//model.addAttribute("message", "修改密码成功");
+				/*returnMap.put("errorCode", "0");//成功*/
+				state = "0";
 			}else{
-				//model.addAttribute("message", "修改密码失败，旧密码错误");
+				/*returnMap.put("errorCode", "1");//失败*/
+				state = "1";
 			}
+		}else{
+			/*returnMap.put("errorCode", "2");//传递的密码数据为空*/
+			state = "2";
 		}
-		model.addAttribute("user", user);
 		
-		//return "redirect:" + frontPath + "frontMemberCenter"+urlSuffix;
-		return "modules/cms/front/themes/basic/memberCenterResetPassData";
+		return state;
 	}
+	
+	
 	
 	/**
 	 * 我的收藏

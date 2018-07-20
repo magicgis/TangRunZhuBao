@@ -24,7 +24,7 @@
 			var usuff = "${fns:getUrlSuffix()}";
 			var action = "";
 			if(flag==2){//修改密码
-				action = ctx+"/frontMemberCenterResetPassData"+usuff;
+				action = ctx+"/reachFrontMemberCenterResetPass"+usuff;
 			}else if(flag==3){//我的收藏
 				action = ctx+"/frontMemberCenterMyCollectionData"+usuff;
 			}else if(flag==1){//个人信息

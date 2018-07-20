@@ -8,9 +8,17 @@
 		$.ajax({
 		   type: "POST",
 		   url: ctx+"/frontMemberCenterResetPassData"+usuff,
+		   dataType: 'text',//文本的方式
 		   data: $("#myForm").serialize(),
-		   success: function(msg){
-			  
+		   success: function(errorCode){
+			   if(errorCode==0){
+				   alert("修改密码成功!");
+			   }else if(errorCode==1){
+				   alert("修改密码失败!");
+			   }else{
+				   alert("原密码或者新密码不可为空!");
+			   }
+			   
 		   }
 		});
 	}
