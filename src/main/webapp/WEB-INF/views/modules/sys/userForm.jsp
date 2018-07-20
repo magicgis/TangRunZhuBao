@@ -9,7 +9,11 @@
 			$("#no").focus();
 			$("#inputForm").validate({
 				rules: {
-					loginName: {remote: "${ctx}/sys/user/checkLoginName?oldLoginName=" + encodeURIComponent('${user.loginName}')}
+					loginName: {remote: "${ctx}/sys/user/checkLoginName?oldLoginName=" + encodeURIComponent('${user.loginName}')},
+					phone: {
+					    required:true,
+						checkPhone: true
+					}
 				},
 				messages: {
 					loginName: {remote: "用户登录名已存在"},
@@ -29,7 +33,13 @@
 					}
 				}
 			});
-		});
+            //自定义正则表达示验证方法
+            $.validator.addMethod("checkPhone",function(value,element,params){
+                //var checkQQ = /^[1-9][0-9]{4,19}$/;
+				var checkPhone=/^1[3,5,7,8]\d{9}$/;
+                return this.optional(element)||(checkPhone.test(value));
+            },"*请输入正确的QQ号码！");
+        });
 	</script>
 </head>
 <body>
