@@ -3,9 +3,6 @@
  */
 package com.thinkgem.jeesite.modules.sys.web.front;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,12 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.security.shiro.session.SessionDAO;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Site;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.product.entity.UserProduct;
 import com.thinkgem.jeesite.modules.product.service.UserProductService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
@@ -133,7 +131,7 @@ public class FrontMembersController extends BaseController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "reachFrontMemberCenterResetPass")
+	@RequestMapping(value = "frontMemberCenterResetPass")
 	public String reachFrontMemberCenterResetPass(Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
@@ -178,13 +176,38 @@ public class FrontMembersController extends BaseController {
 	 * @param model
 	 * @return
 	 */
+	@RequestMapping(value = "frontMemberCenterMyCollection")
+	public String frontMemberCenterMyCollection(HttpServletRequest request, HttpServletResponse response,Model model) {
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+        
+		return "modules/cms/front/themes/basic/memberCenterMyCollection";
+	}
+
 	@RequestMapping(value = "frontMemberCenterMyCollectionData")
-	public String frontMemberCenterMyCollectionData(Model model) {
+	public String frontMemberCenterMyCollectionData(HttpServletRequest request, HttpServletResponse response,Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
 		
+		String pageNo = request.getParameter("pageNo");
+		/*查询“我的收藏”的相关数据*/
+		UserProduct userProduct = new UserProduct();
+		
+		Page<UserProduct> pages = new Page<UserProduct>(request, response);
+		pages.setPageSize(2);//设定为2页面的个数
+		if(pageNo!= null && StringUtils.isNotBlank(pageNo)){
+			pages.setPageNo(Integer.parseInt(pageNo));
+		}
+		
+        Page<UserProduct> page = userProductService.findPage(pages, userProduct);
+       
+        model.addAttribute("page", page);
+        
 		return "modules/cms/front/themes/basic/memberCenterMyCollectionData";
 	}
-
+	
+	
+	
 }

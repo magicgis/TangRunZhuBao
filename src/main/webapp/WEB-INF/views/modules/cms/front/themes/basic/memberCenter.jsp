@@ -24,9 +24,9 @@
 			var usuff = "${fns:getUrlSuffix()}";
 			var action = "";
 			if(flag==2){//修改密码
-				action = ctx+"/reachFrontMemberCenterResetPass"+usuff;
+				action = ctx+"/frontMemberCenterResetPass"+usuff;
 			}else if(flag==3){//我的收藏
-				action = ctx+"/frontMemberCenterMyCollectionData"+usuff;
+				action = ctx+"/frontMemberCenterMyCollection"+usuff;
 			}else if(flag==1){//个人信息
 				action = ctx+"/frontMemberCenter"+usuff;
 				window.location.href=action;
@@ -41,10 +41,42 @@
 			   //data: $("#myForm").serialize(),
 			   success: function(msg){
 				   $(".personal-center-box").html(msg);
+				   //如果是"我的收藏"在进一步请求
+				   if(flag==3){
+					   getFrontProductListData();
+				   }
 			   }
 			});
 			return false;
 		}
+ 
+		//进到 “我的收藏中”请求数据
+		function getFrontMyCollenctionData(){
+			var usuff = "${fns:getUrlSuffix()}";
+			$.ajax({
+			   type: "POST",
+			   url: ctx+"/frontMemberCenterMyCollectionData"+usuff,
+			   data: $("#searchForm").serialize(),
+			   success: function(msg){
+				   $(".my-collect").html(msg);
+			   }
+			});
+			return false;
+		}
+		
+		/* 分页 */
+		function page(n,s){
+			$("#pageNo").val(n);
+			$("#pageSize").val(s);
+			/*使用ajax提交form表单*/
+			getFrontProductListData();
+        }
+		
+		//我的收藏中的删除
+	    function deleteUserProduct(id){
+			alert(id+"删除成功！！！");
+		}
+		
 	</script>
 	
 </head>

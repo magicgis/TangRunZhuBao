@@ -22,7 +22,6 @@
 				${adminPath}/cas = cas
 				${adminPath}/logout = logout
 				${frontPath}/frontMemberCenter*=authc
-				${frontPath}/frontMemberCenterMyCollection*=authc
 				${adminPath}/** = user
 				/act/editor/** = user
 				/ReportServer/** = user

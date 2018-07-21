@@ -11,14 +11,14 @@
 		a.bak2 AS "bak2",
 		a.bak3 AS "bak3",
 		u3.name AS "user.name",
-		p.imageShare1,
-		p.name,
-		p.productCategory,
-		p.productMaterial,
-		p.productSpeciescolor,
-		p.weight,
-		p.size,
-		p.technology
+		p.image_share1 AS "product.imageShare1",
+		p.name AS "product.name",
+		p.product_category AS "product.productCategory",
+		p.product_material AS "product.productMaterial",
+		p.product_speciescolor AS "product.productSpeciescolor",
+		p.weight AS "product.weight",
+		p.size AS "product.size",
+		p.technology AS "product.technology"
 	</sql>
 	
 	<sql id="userProductJoins">
