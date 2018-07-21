@@ -74,7 +74,22 @@
 		
 		//我的收藏中的删除
 	    function deleteUserProduct(id){
-			alert(id+"删除成功！！！");
+			$("#userProductId").val(id);
+			
+			var usuff = "${fns:getUrlSuffix()}";
+			$.ajax({
+			   type: "POST",
+			   url: ctx+"/frontMemberCenterMyCollectionDelete"+usuff,
+			   data: $("#searchForm").serialize(),
+			   success: function(errorCode){
+				   alert("删除成功！");
+				   /* if(errorCode==0){
+			   			alert("删除成功！");
+			   		}    */
+			   }
+			});
+			//重新请求数据
+			getFrontMyCollenctionData();
 		}
 		
 	</script>

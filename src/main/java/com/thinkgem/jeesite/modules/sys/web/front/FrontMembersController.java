@@ -194,6 +194,7 @@ public class FrontMembersController extends BaseController {
 		String pageNo = request.getParameter("pageNo");
 		/*查询“我的收藏”的相关数据*/
 		UserProduct userProduct = new UserProduct();
+		userProduct.setDelFlag(UserProduct.DEL_FLAG_NORMAL);
 		
 		Page<UserProduct> pages = new Page<UserProduct>(request, response);
 		pages.setPageSize(2);//设定为2页面的个数
@@ -208,6 +209,23 @@ public class FrontMembersController extends BaseController {
 		return "modules/cms/front/themes/basic/memberCenterMyCollectionData";
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "frontMemberCenterMyCollectionDelete")
+	public String frontMemberCenterMyCollectionDelete(HttpServletRequest request, HttpServletResponse response,Model model) {
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+		
+		String userProductId = request.getParameter("userProductId");
+		/*查询“我的收藏”的相关数据*/
+		UserProduct userProduct = new UserProduct();
+		if(userProductId!= null && StringUtils.isNotBlank(userProductId)){
+			userProduct.setId(userProductId);
+		}
+		userProduct.setDelFlag(UserProduct.DEL_FLAG_DELETE);
+        userProductService.save(userProduct);
+       
+		return "0";
+	}
 	
 }

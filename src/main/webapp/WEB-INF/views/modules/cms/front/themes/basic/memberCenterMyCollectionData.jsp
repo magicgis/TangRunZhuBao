@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/modules/cms/front/include/taglib.jsp"%>
-<div class="title">
-      <span class="name">我的收藏</span>
+	   <div class="title">
+       		<span class="name">我的收藏</span>
        </div>
        <!-- 分页数据 -->
 	   <form id="searchForm" action="" method="post" >
 		 <input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
+		 <input id="userProductId" name="userProductId" type="hidden" value=""/>
 	   </form>
        <table class="my-collect-list" width="100%" border="0">
 
