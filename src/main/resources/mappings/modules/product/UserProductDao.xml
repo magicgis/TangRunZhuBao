@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.product.dao.UserProductDao">
+    
+	<sql id="userProductColumns">
+		a.id AS "id",
+		a.product_id AS "product.id",
+		a.user_id AS "user.id",
+		a.create_date AS "createDate",
+		a.del_flag AS "delFlag",
+		a.bak1 AS "bak1",
+		a.bak2 AS "bak2",
+		a.bak3 AS "bak3",
+		u3.name AS "user.name",
+		p.image_share1 AS "product.imageShare1",
+		p.name AS "product.name",
+		p.product_category AS "product.productCategory",
+		p.product_material AS "product.productMaterial",
+		p.product_speciescolor AS "product.productSpeciescolor",
+		p.weight AS "product.weight",
+		p.size AS "product.size",
+		p.technology AS "product.technology"
+	</sql>
+	
+	<sql id="userProductJoins">
+		LEFT JOIN sys_user u3 ON u3.id = a.user_id
+		LEFT JOIN product p ON p.id = a.product_id
+	</sql>
+    
+	<select id="get" resultType="UserProduct">
+		SELECT 
+			<include refid="userProductColumns"/>
+		FROM f_user_product a
+		<include refid="userProductJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="UserProduct">
+		SELECT 
+			<include refid="userProductColumns"/>
+		FROM f_user_product a
+		<include refid="userProductJoins"/>
+		<where>
+			a.del_flag = #{delFlag}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="UserProduct">
+		SELECT 
+			<include refid="userProductColumns"/>
+		FROM f_user_product a
+		<include refid="userProductJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO f_user_product(
+			id,
+			product_id,
+			user_id,
+			create_date,
+			del_flag
+		) VALUES (
+			#{id},
+			#{product.id},
+			#{user.id},
+			#{createDate},
+			#{delFlag}
+		)
+	</insert>
+	<!-- 更新数据 -->
+	<update id="update">
+		UPDATE f_user_product SET 	
+			<!-- product_id = #{product.id},
+			user_id = #{user.id} -->
+			del_flag = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM f_user_product
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

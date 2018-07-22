@@ -27,6 +27,9 @@
 				action = ctx+"/frontMemberCenterResetPassData"+usuff;
 			}else if(flag==3){//我的收藏
 				action = ctx+"/frontMemberCenterMyCollectionData"+usuff;
+				action = ctx+"/frontMemberCenterResetPass"+usuff;
+			}else if(flag==3){//我的收藏
+				action = ctx+"/frontMemberCenterMyCollection"+usuff;
 			}else if(flag==1){//个人信息
 				action = ctx+"/frontMemberCenter"+usuff;
 				window.location.href=action;
@@ -41,10 +44,58 @@
 			   //data: $("#myForm").serialize(),
 			   success: function(msg){
 				   $(".personal-center-box").html(msg);
+
+				   //如果是"我的收藏"在进一步请求
+				   if(flag==3){
+					   getFrontMyCollenctionData();
+				   }
 			   }
 			});
 			return false;
 		}
+		//进到 “我的收藏中”请求数据
+		function getFrontMyCollenctionData(){
+			var usuff = "${fns:getUrlSuffix()}";
+			$.ajax({
+			   type: "POST",
+			   url: ctx+"/frontMemberCenterMyCollectionData"+usuff,
+			   data: $("#searchForm").serialize(),
+			   success: function(msg){
+				   $(".my-collect").html(msg);
+			   }
+			});
+			return false;
+		}
+		
+		/* 分页 */
+		function page(n,s){
+			$("#pageNo").val(n);
+			$("#pageSize").val(s);
+			/*使用ajax提交form表单*/
+			getFrontMyCollenctionData();
+        }
+		
+		//我的收藏中的删除
+	    function deleteUserProduct(id){
+			$("#userProductId").val(id);
+			
+			var usuff = "${fns:getUrlSuffix()}";
+			$.ajax({
+			   type: "POST",
+			   url: ctx+"/frontMemberCenterMyCollectionDelete"+usuff,
+			   data: $("#searchForm").serialize(),
+			   success: function(errorCode){
+				   alert("删除成功！");
+				   /* if(errorCode==0){
+			   			alert("删除成功！");
+			   		}    */
+			   }
+			});
+			//重新请求数据
+			getFrontMyCollenctionData();
+		}
+		
+>>>>>>> master
 	</script>
 	
 </head>
@@ -154,7 +205,7 @@
 				       <!--  <a href="" class="refresh"><i class="ico"></i>换一组</a> -->
 				    </div>
 				    <ul class="you-like-list clearfix">
-			        	<!-- 使用工具类的热门产品   8个产品 -->
+			        	<!-- 使用工具类的热门产品   3个产品 -->
                         <c:forEach items="${fnp:getHotProductList(site.id,'0',3)}" var="hotProduct">
                             <li class="item">
 				                <div class="img">

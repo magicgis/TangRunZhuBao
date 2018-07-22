@@ -1,5 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/modules/cms/front/include/taglib.jsp"%>
+
+	<script type="text/javascript">
+		function submitPassword(){
+			var usuff = "${fns:getUrlSuffix()}";
+			
+			$.ajax({
+			   type: "POST",
+			   url: ctx+"/frontMemberCenterResetPassData"+usuff,
+			   dataType: 'text',//文本的方式
+			   data: $("#myForm").serialize(),
+			   success: function(errorCode){
+				   if(errorCode==0){
+					   alert("修改密码成功!");
+					   window.location.reload();//刷新当前页面
+				   }else if(errorCode==1){
+					   alert("修改密码失败!");
+				   }else{
+					   alert("原密码或者新密码不可为空!");
+				   }
+				   
+			   }
+			});
+		}
+	</script>
+	
 	<div class="column-nav">
 	    <a href="">会员中心</a>
 	    	<span class="ico"> -&gt; </span>
@@ -12,81 +37,51 @@
 	        <span class="subtitle">尽量填写完整信息，方便店家与你联系！</span>
 	    </div>
 	    <div class="personal-form clearfix">
-	        <div class="form-column-control clearfix">
-	            <div class="name">姓名：</div>
-	            <div class="input-div-wrap">
-	                <input type="text" class="input-control">
-	            </div>
-	        </div>
-	        <div class="form-column-control clearfix">
-	            <div class="name">邮箱地址：</div>
-	            <div class="input-div-wrap">
-	                <input type="text" class="input-control">
-	            </div>
-	        </div>
-	        <div class="form-column-control clearfix">
-	            <div class="name">手机号码：</div>
-	            <div class="input-div-wrap">
-	                <input type="text" class="input-control">
-	            </div>
-	        </div>
-	        <div class="form-column-control clearfix">
-	            <div class="name">注册地址：</div>
-	            <div class="input-div-wrap">
-	                <select name="" id="" class="select-control">
-	                    <option value="">请选择省</option>
-	                </select>
-	                <select name="" id="" class="select-control">
-	                    <option value="">请选择市</option>
-	                </select>
-	                <select name="" id="" class="select-control">
-	                    <option value="">请选择区</option>
-	                </select>
-	            </div>
-	        </div>
-	        <div class="form-column-control clearfix">
-	            <div class="name">详细地址：</div>
-	            <div class="input-div-wrap">
-	                <input type="text" class="input-control">
-	            </div>
-	        </div>
-	        <div class="submit-wrap clearfix">
-	            <input type="submit"  class="submit-control" value="保存" />
-	        </div>
+	        <form id="myForm" action="" method="post">
+		        <input type="hidden" id="id" name="id" class="input-control" value="${user.id}"/>
+		        
+		        <div class="form-column-control clearfix">
+		            <div class="name">旧密码：</div>
+		            <div class="input-div-wrap">
+		            	<input id="oldPassword" name="oldPassword" type="password" class="input-control"/>
+		            </div>
+		        </div>
+		        <div class="form-column-control clearfix">
+		            <div class="name">新密码：</div>
+		            <div class="input-div-wrap">
+		            	<input id="newPassword" name="newPassword" type="password" class="input-control"/>
+		            </div>
+		        </div>
+		        <div class="form-column-control clearfix">
+		            <div class="name">确认密码：</div>
+		            <div class="input-div-wrap">
+		            	<input id="confirmNewPassword" name="confirmNewPassword" type="password" class="input-control" equalTo="#newPassword"/>
+		            </div>
+		        </div>
+		        
+		        <div class="submit-wrap clearfix">
+		            <input type="button" onclick="submitPassword()" class="submit-control" value="保存" />
+		        </div>
+	        </form>
 	    </div>
 	</div>
 	<div class="guess-you-like">
 	    <div class="guess-title">
 	        <span class="name">猜你喜欢</span>
-	        <a href="" class="refresh"><i class="ico"></i>换一组</a>
+	       <!--  <a href="" class="refresh"><i class="ico"></i>换一组</a> -->
 	    </div>
 	    <ul class="you-like-list clearfix">
-	        <li class="item">
+	       	<!-- 使用工具类的热门产品  3个产品 -->
+            <c:forEach items="${fnp:getHotProductList(site.id,'0',3)}" var="hotProduct">
+                <li class="item">
 	                <div class="img">
-	                    <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(36).jpg" alt="">
+	                    <img src="${hotProduct.imageEmeraldNephrite2}" alt="">
 	                </div>
 	                <div class="handel">
-	                    <span class="name">和田玉竹报平安</span>
-	                     <a href="" class="look">查看详情</a>
+	                    <span class="name">${hotProduct.name}</span>
+	                    <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${hotProduct.id}" class="look">查看详情</a>
 	                </div>
-	        </li>
-	        <li class="item">
-	            <div class="img">
-	                <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(37).jpg" alt="">
-	            </div>
-	            <div class="handel">
-	                <span class="name">和田玉竹报平安</span>
-	                <a href="" class="look">查看详情</a>
-	            </div>
-	        </li>
-	        <li class="item">
-	            <div class="img">
-	                <img src="${ctxStatic}/modules/cms/front/themes/basic/uploads/img(38).jpg" alt="">
-	            </div>
-	            <div class="handel">
-	                <span class="name">和田玉竹报平安</span>
-	                <a href="" class="look">查看详情</a>
-	            </div>
-	        </li>
+		        </li>
+            </c:forEach>
 	    </ul>
 	</div>
