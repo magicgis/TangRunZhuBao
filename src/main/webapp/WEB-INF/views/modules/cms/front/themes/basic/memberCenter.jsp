@@ -24,6 +24,9 @@
 			var usuff = "${fns:getUrlSuffix()}";
 			var action = "";
 			if(flag==2){//修改密码
+				action = ctx+"/frontMemberCenterResetPassData"+usuff;
+			}else if(flag==3){//我的收藏
+				action = ctx+"/frontMemberCenterMyCollectionData"+usuff;
 				action = ctx+"/frontMemberCenterResetPass"+usuff;
 			}else if(flag==3){//我的收藏
 				action = ctx+"/frontMemberCenterMyCollection"+usuff;
@@ -41,6 +44,7 @@
 			   //data: $("#myForm").serialize(),
 			   success: function(msg){
 				   $(".personal-center-box").html(msg);
+
 				   //如果是"我的收藏"在进一步请求
 				   if(flag==3){
 					   getFrontMyCollenctionData();
@@ -49,7 +53,6 @@
 			});
 			return false;
 		}
- 
 		//进到 “我的收藏中”请求数据
 		function getFrontMyCollenctionData(){
 			var usuff = "${fns:getUrlSuffix()}";
@@ -92,6 +95,7 @@
 			getFrontMyCollenctionData();
 		}
 		
+>>>>>>> master
 	</script>
 	
 </head>
