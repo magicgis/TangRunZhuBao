@@ -8,6 +8,7 @@
 		$(document).ready(function() {
 			$("#no").focus();
 			$("#inputForm").validate({
+                debug: true,
 				rules: {
 					loginName: {remote: "${ctx}/sys/user/checkLoginName?oldLoginName=" + encodeURIComponent('${user.loginName}')},
 					phone: {
@@ -16,6 +17,9 @@
 					}
 				},
 				messages: {
+				    phone:{
+				        required:"手机号码不能为空",
+                    },
 					loginName: {remote: "用户登录名已存在"},
 					confirmNewPassword: {equalTo: "输入与上面相同的密码"}
 				},

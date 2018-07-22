@@ -6,8 +6,12 @@ package com.thinkgem.jeesite.modules.sys.web.front;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.servlet.ValidateCodeServlet;
+import com.thinkgem.jeesite.common.utils.JsonUtil;
+import com.thinkgem.jeesite.common.utils.SmsLeyunUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
@@ -17,6 +21,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +33,7 @@ import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +48,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "${frontPath}")
 public class FrontMembersController extends BaseController {
+
+	private static final String   REGISTER_OFFICE_ID="743291658d174ab9ac2da179e0fb66c4";
+	private static final String   REGISTER_ROLE_ID="6";
 
 	@Autowired
 	private SystemService systemService;
@@ -71,6 +80,8 @@ public class FrontMembersController extends BaseController {
 	public String frontMemberRegisterPage(Model model) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("user", new User());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
 		return "modules/cms/front/themes/basic/memberRegister";
 	}
 
@@ -80,40 +91,50 @@ public class FrontMembersController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "frontMemberRegister/save")
-	public String frontMemberRegister(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
-		User user=new User();
+	public String frontMemberRegister(User user,HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 		// 修正引用赋值问题，不知道为何，Company和Office引用的一个实例地址，修改了一个，另外一个跟着修改。
-		/*user.setCompany(new Office(request.getParameter("company.id")));
-		user.setOffice(new Office(request.getParameter("office.id")));*/
-		// 如果新密码为空，则不更换密码
+		if (!ValidateCodeServlet.validate(request,request.getParameter("vcodeinput"))){
+			addMessage(model, "验证码错误，请重新输入");
+			return formUser(user, model);
+		}
+		user.setName(user.getLoginName());
+		user.setCompany(new Office(REGISTER_OFFICE_ID));
+		user.setOffice(new Office(REGISTER_OFFICE_ID));
+		user.setCreateBy(new User("1"));
+		user.setUpdateBy(new User("1"));
+		user.setCreateDate(new Date());
+		user.setUpdateDate(new Date());
 		if (StringUtils.isNotBlank(user.getPassword())) {
 			user.setPassword(SystemService.entryptPassword(user.getPassword()));
 		}
 		if (!beanValidator(model, user)){
 			return formUser(user, model);
 		}
-		if (!"true".equals(checkLoginName(user.getOldLoginName(), user.getLoginName()))){
-			addMessage(model, "注册用户失败，手机号：'"+user.getOldLoginName()+"'已存在");
+		if (!"true".equals(checkLoginName(user.getLoginName()))){
+			addMessage(model, "注册用户失败，登录名：'"+user.getLoginName()+"'已存在");
+			return formUser(user, model);
+		}
+
+		if (!"true".equals(checkMobile(user.getMobile()))){
+			addMessage(model, "注册用户失败，手机号：'"+user.getMobile()+"'已存在");
 			return formUser(user, model);
 		}
 		// 角色数据有效性验证，过滤不在授权内的角色
-		/*List<Role> roleList = Lists.newArrayList();
-		List<String> roleIdList = user.getRoleIdList();
+		List<Role> roleList = Lists.newArrayList();
+		/*List<String> roleIdList = user.getRoleIdList();
 		for (Role r : systemService.findAllRole()){
 			if (roleIdList.contains(r.getId())){
 				roleList.add(r);
 			}
-		}
-		user.setRoleList(roleList);*/
+		}*/
+		roleList.add(new Role(REGISTER_ROLE_ID));
+		user.setRoleList(roleList);
 		// 保存用户信息
 		systemService.saveUser(user);
 		// 清除当前用户缓存
-		if (user.getLoginName().equals(UserUtils.getUser().getLoginName())){
-			UserUtils.clearCache();
-			//UserUtils.getCacheMap().clear();
-		}
+
 		addMessage(redirectAttributes, "保存用户'" + user.getLoginName() + "'成功");
-		return "redirect:" + adminPath + "/sys/user/list?repage";
+		return "redirect:"+frontPath+"/frontMemberCenterPersonalInfo?repage";
 	}
 
 	@RequestMapping(value = "form")
@@ -125,6 +146,7 @@ public class FrontMembersController extends BaseController {
 			user.setOffice(UserUtils.getUser().getOffice());
 		}
 		model.addAttribute("user", user);
+		model.addAttribute("site", CmsUtils.getSite(Site.defaultSiteId()));
 		return "modules/cms/front/themes/basic/memberRegister";
 	}
 
@@ -132,19 +154,51 @@ public class FrontMembersController extends BaseController {
 	/**
 	 * 验证登录名是否有效
 	 * @param oldLoginName
-	 * @param loginName
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "checkLoginName")
-	public String checkLoginName(String oldLoginName, String loginName) {
-		if (loginName !=null && loginName.equals(oldLoginName)) {
-			return "true";
-		} else if (loginName !=null && systemService.getUserByLoginName(loginName) == null) {
+	public String checkLoginName(String loginName) {
+		if (loginName !=null && systemService.getUserByLoginName(loginName) == null) {
 			return "true";
 		}
 		return "false";
 	}
+
+
+	/**
+	 * 验证手机号码是否有效
+	 * @param mobile
+	 * @param mobile
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "checkMobile")
+	public String checkMobile(String mobile) {
+		List userList=systemService.getUserByMobile(mobile);
+		if (mobile !=null && CollectionUtils.isEmpty(userList)) {
+			return "true";
+		}
+		return "false";
+	}
+
+
+
+
+	/**
+	 * 获取短信验证码
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getSmsCode")
+	public String getSmsCode(String mobile) {
+		//ObjectMapper mapper = new ObjectMapper();
+		//mapper.readTree(SmsLeyunUtils.send("登陆验证码为：9999",mobile,""));
+		return "false";
+	}
+
+
+
 	/**
 	 * 重置密码
 	 * @param model
