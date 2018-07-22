@@ -427,7 +427,7 @@ public class FrontController extends BaseController{
 	}
     
 	/**
-	 * 帮助中心
+	 * 帮助中心 
 	 * @param model
 	 * @return
 	 */

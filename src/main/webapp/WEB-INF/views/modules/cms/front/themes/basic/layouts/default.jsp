@@ -14,9 +14,17 @@
 	    <div class="wrapper clearfix">
 	        <div class="site-nav-l fl">
 	            <span class="msg">欢迎来到唐润珠宝！</span>
-	            <a href="${ctx}/frontMemberLogin${fns:getUrlSuffix()}" class="login-link">登录</a>
-	            <span class="line">|</span>
-	            <a href="${ctx}/frontMemberRegister${fns:getUrlSuffix()}" class="register-link">注册</a>
+	            <c:set var="user" value="${fns:getUser()}"></c:set>
+	            <c:choose>
+		   			<c:when test="${not empty user.loginName}">
+			            <a href="javascript:;" class="login-link"><c:out value="${user.loginName }"></c:out></a>
+		   			</c:when>
+		   			<c:otherwise>
+		   				<a href="${ctx}/frontMemberCenter${fns:getUrlSuffix()}" class="login-link">登录</a>
+			            <span class="line">|</span>
+			            <a href="${ctx}/frontMemberRegister${fns:getUrlSuffix()}" class="register-link">注册</a>
+		   			</c:otherwise>
+	   		  	</c:choose>
 	        </div>
 	        <div class="site-nav-r fr">
 	            <a href="${ctx}/frontMemberCenterMyCollection${fns:getUrlSuffix()}" class="t-nav">我的收藏</a>
