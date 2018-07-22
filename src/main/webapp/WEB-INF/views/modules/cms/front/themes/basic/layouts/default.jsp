@@ -27,11 +27,15 @@
 	   		  	</c:choose>
 	        </div>
 	        <div class="site-nav-r fr">
-	            <a href="${ctx}/frontMemberCenterMyCollection${fns:getUrlSuffix()}" class="t-nav">我的收藏</a>
-	            <span class="line">|</span>
+	           <%--  <a href="${ctx}/frontMemberCenterMyCollection${fns:getUrlSuffix()}" class="t-nav">我的收藏</a>
+	            <span class="line">|</span> --%>
 	            <a href="${ctx}/frontMemberCenter${fns:getUrlSuffix()}" class="t-nav">会员中心</a>
 	            <span class="line">|</span>
 	            <a href="${ctx}/frontMemberHelpCenterData${fns:getUrlSuffix()}" class="t-nav">帮助中心</a>
+	            <c:if test="${not empty user.loginName}">
+		          <span class="line">|</span>
+		          <a href="javascript:;" class="login-link">[退出登录]</a>
+	   			</c:if>
 	        </div>
 	    </div>
 	</div>
