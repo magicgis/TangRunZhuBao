@@ -187,9 +187,11 @@
                     </div>--%>
                     <div class="form-col-control">
                         <p class="xy-p">
-                        <input type="checkbox" name="agree"
-                               style="padding-right:10px;"/>
-                        我已阅读并同意<a href="" class="xy-link">会员注册协议</a>和<a href="" class="xy-link">隐私保护政策</a></p>
+                        <input type="checkbox" name="agree" style="padding-right:10px;"/>
+                
+		                <c:set var="helpCenter" value="${fnc:getCategory('c64c12f10a844029b275cea9d74e7489')}"></c:set>
+		            	我已阅读并同意
+                        <a href="${helpCenter.url}" class="xy-link">会员注册协议</a>和<a href="${helpCenter.url}" class="xy-link">隐私保护政策</a></p>
                     </div>
                        <%-- <a href="javascript:;document.inputForm.submit();" class="register-btn" >立即注册</a>--%>
                     <div class="form-col-control">
