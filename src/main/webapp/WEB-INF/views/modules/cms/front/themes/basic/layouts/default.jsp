@@ -115,7 +115,7 @@
 		    	</c:if>
 		    	
 	    	</c:forEach>
-	        <a href="${ctx}/frontOfflineEntityList${fns:getUrlSuffix()}">产品展示</a>
+	        <a href="${ctx}/frontOfflineEntityList${fns:getUrlSuffix()}">线下实体店</a>
 	        
 	        
 	       <!--  <a href="">玉器师</a><span class="line">|</span>
