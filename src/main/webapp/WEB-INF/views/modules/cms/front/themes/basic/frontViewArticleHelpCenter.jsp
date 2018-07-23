@@ -45,12 +45,14 @@
             
             <div class="column-body">
                 <div class="column-nav">
-                    <a href="javascript:;">关于我们</a> 
+                    <a href="javascript:;">帮助中心</a> 
                     <span class="ico"> -> </span>
                     <a href="javascript:;">${article.title}</a>
                 </div>
                 <div class="group-profile">
                 	${article.articleData.content}
+                	
+                	
                 </div>   
 
             </div>
