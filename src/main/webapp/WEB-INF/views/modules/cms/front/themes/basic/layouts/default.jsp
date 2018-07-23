@@ -31,7 +31,10 @@
 	            <span class="line">|</span> --%>
 	            <a href="${ctx}/frontMemberCenter${fns:getUrlSuffix()}" class="t-nav">会员中心</a>
 	            <span class="line">|</span>
-	            <a href="${ctx}/frontMemberHelpCenterData${fns:getUrlSuffix()}" class="t-nav">帮助中心</a>
+	            
+	            <c:set var="helpCenter" value="${fnc:getCategory('c64c12f10a844029b275cea9d74e7489')}"></c:set>
+	            <a href="${helpCenter.url}" class="t-nav">帮助中心</a>
+	            
 	            <c:if test="${not empty user.loginName}">
 		          <span class="line">|</span>
 		          <a href="javascript:;" class="login-link">[退出登录]</a>
