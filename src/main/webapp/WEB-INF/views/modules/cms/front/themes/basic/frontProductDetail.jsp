@@ -55,6 +55,14 @@
 	            }
 	        });
 	    });
+	    
+	    /* 添加收  和 取消收藏 */
+	    function addCollection(productId){
+	    	//星号变色
+	    	
+	    	//修改数据库表中的字段,并插入到数据库表中
+	    	
+	    }
 	</script>
 	
 </head>
@@ -95,10 +103,18 @@
                 <div class="good-introduce">
                     <h2 class="title">${product.name}</h2>
                     <p class="look-num">
-                        <i class="ico">
-                            <img src="${ctxStatic}/modules/cms/front/themes/basic/asset/img/eye.png" alt="">
-                        </i>
-                        浏览次数： ${product.hits}次
+                        <span style="float:left;">
+	                        <i class="ico">
+	                            <img src="${ctxStatic}/modules/cms/front/themes/basic/asset/img/eye.png" alt="">
+	                        </i>
+	                       	 浏览次数： ${product.hits}次
+                       	</span>
+                       	<a href="javascript:addCollection('${product.id}');" style="float:right;color:#2a2a2a;">
+	                        <i class="ico">
+	                            <img src="${ctxStatic}/modules/cms/front/themes/basic/asset/img/star.png" alt="" title="点我收藏">
+	                        </i>
+	                        	收藏产品：2人气
+                        </a>
                     </p>
                     <ul class="specifications">
                         <li class="item">

@@ -3220,6 +3220,7 @@ div.column-banner img {
 .user-reg {
   padding-top: 84px;
   background: url("../img/rbg.jpg") no-repeat center center;
+  min-height:827px;
 }
 .user-reg .user-reg-box {
   background: #fff;
@@ -3353,6 +3354,7 @@ div.column-banner img {
 @media (max-width: 470px) {
   .user-reg {
     padding-top: 20px;
+	min-height:auto;
   }
   .user-reg .user-reg-box {
     margin-bottom: 20px;
