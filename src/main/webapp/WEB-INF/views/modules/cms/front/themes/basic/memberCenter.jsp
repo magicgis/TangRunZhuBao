@@ -11,7 +11,44 @@
 	<meta name="keywords" content="${site.keywords}" />
 	<script type="text/javascript">
 		/*  点击“个人信息管理”导航之后颜色变色   */
-	    $(function(){
+
+
+        $(document).ready(function() {
+            /*initComplexArea('seachprov', 'seachcity', 'seachdistrict', area_array, sub_array, '0', '0', '0');
+            initComplexArea('cseachprov', 'cseachcity', 'cseachdistrict', area_array, sub_array, '0', '0', '0');*/
+
+            $("#mobile").focus();
+            $("#myForm").validate({
+                //debug: true,
+                messages: {
+                    mobile: {
+                        required:"手机号码不能为空",
+                        confirmNewPassword: {equalTo: "输入与上面相同的密码"}
+                    }
+                },
+                submitHandler: function(form){
+                    loading('正在提交，请稍等...');
+                    form.submit();
+                },
+                errorContainer: "#messageBox",
+                errorPlacement: function(error, element) {
+                    $("#messageBox").text("输入有误，请先更正。");
+                    if (element.is(":checkbox")||element.is(":radio")||element.parent().is(".input-append")){
+                        error.appendTo(element.parent().parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+        });
+        $.validator.addMethod("checkMobile",function(value,element,params){
+            var checkName = /^1[3,5,7,8]\d{9}$/;
+            return checkName.test(value);
+        },"手机号码格式不正确");
+
+
+
+        $(function(){
 	        $(".personal-center-side .side-menu .side-menu-list dd a").click(function(){
 	            $(".personal-center-side .side-menu .side-menu-list dd a").removeClass('active');
 	            $(this).addClass('active');
@@ -91,8 +128,6 @@
 			//重新请求数据
 			getFrontMyCollenctionData();
 		}
-		
-
 	</script>
 	
 </head>
@@ -145,6 +180,14 @@
 				    <div class="personal-form clearfix">
 				        
 				       	<form id="myForm" action="${ctx}/frontMemberCenter${fns:getUrlSuffix()}" method="post">
+							<sys:message content="${message}"/>
+							<div class="form-column-control clearfix">
+								<div class="name">登录名：</div>
+								<div class="input-div-wrap">
+									<!-- 隐藏域 -->
+									<input type="text" id="loginName" name="loginName"  disabled class="input-control" value="${user.loginName}">
+								</div>
+							</div>
 					        <div class="form-column-control clearfix">
 					            <div class="name">姓名：</div>
 					            <div class="input-div-wrap">
@@ -159,13 +202,13 @@
 					        <div class="form-column-control clearfix">
 					            <div class="name">邮箱地址：</div>
 					            <div class="input-div-wrap">
-					                <input type="text" id="email" name="email" class="input-control" value="${user.email}">
+					                <input type="text" id="email" name="email" class="input-control required email"  value="${user.email}">
 					            </div>
 					        </div>
 					        <div class="form-column-control clearfix">
 					            <div class="name">手机号码：</div>
 					            <div class="input-div-wrap">
-					                <input type="text" id="mobile" name="mobile" class="input-control" value="${user.mobile}">
+					                <input type="text" id="mobile" name="mobile" minlength="11" maxlength="11" class="input-control required" value="${user.mobile}">
 					            </div>
 					        </div>
 					        <!-- <div class="form-column-control clearfix">
