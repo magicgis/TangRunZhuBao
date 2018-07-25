@@ -37,7 +37,7 @@
 	            
 	            <c:if test="${not empty user.loginName}">
 		          <span class="line">|</span>
-		          <a href="javascript:;" class="login-link">[退出登录]</a>
+		          <a href="${ctx}/frontMemberLogout${fns:getUrlSuffix()}" class="login-link">[退出登录]</a>
 	   			</c:if>
 	        </div>
 	    </div>

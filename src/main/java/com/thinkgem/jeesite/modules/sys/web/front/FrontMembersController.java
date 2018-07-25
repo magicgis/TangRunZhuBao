@@ -17,6 +17,7 @@ import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.entity.Role;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ import com.thinkgem.jeesite.modules.product.service.UserProductService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -377,5 +379,20 @@ public class FrontMembersController extends BaseController {
 
 		return "0";
 	}
-
+	/**
+	 * 退出登录到方法:
+	 * 1.注销掉session后 重定向到用户中心
+	 * 2.因为用户中心必须登录后才能进去，如果没有登录则调转到登录页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "frontMemberLogout")
+	public String frontMemberLogout(Model model) {
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+		
+		UserUtils.getSubject().logout();
+		return "redirect:" + frontPath + "/frontMemberCenter";
+	}
 }

@@ -43,6 +43,7 @@ import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.service.SiteService;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
 import com.thinkgem.jeesite.modules.product.service.UserProductService;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
 /**
  * 网站Controller
@@ -439,5 +440,6 @@ public class FrontController extends BaseController{
 		
 		return "modules/cms/front/themes/basic/frontViewArticleHelpCenter";
 	}
+	
     
 }
