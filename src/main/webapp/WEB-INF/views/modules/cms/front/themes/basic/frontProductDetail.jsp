@@ -56,11 +56,41 @@
 	        });
 	    });
 	    
-	    /* 添加收  和 取消收藏 */
+	    /*添加收藏和取消收藏 */
 	    function addCollection(productId){
-	    	//星号变色
+	    	//询问“是否”查看是否登录注册
+	    	var userId = $("#userId").val();
+	    	if((typeof(userId) == "undefined") || (userId==null) ||(userId=="")){
+	    		alert("亲，你还没有登录，请登录！");
+	    		window.location = "${ctx}/frontMemberCenter${fns:getUrlSuffix()}";
+	    		return;
+	    	}
 	    	
+ 	    	var flag = $("img[name=myCollection]").attr("alt");
 	    	//修改数据库表中的字段,并插入到数据库表中
+	    	$.ajax({
+				   type: "POST",
+				   url: "${ctx}/operateCollection${fns:getUrlSuffix()}",
+				   data:{"productId":productId,"flag":flag},
+				   success: function(errorCode){
+					   if(errorCode==0){
+							alert("操作成功！");   
+							if(flag == 1){//添加收藏
+						    	//星号变色
+						    	$("img[name=myCollection]").attr('src','${ctxStatic}/modules/cms/front/themes/basic/asset/img/star1.png');
+						    	$("img[name=myCollection]").attr("alt","0");
+					    	}else{//取消收藏 
+					    		//星号变色
+						    	$("img[name=myCollection]").attr('src','${ctxStatic}/modules/cms/front/themes/basic/asset/img/star.png');
+						    	$("img[name=myCollection]").attr("alt","1");
+					    	}
+							
+					   }else{
+						   alert("操作失败！");
+					   }
+				   }
+			});
+			return false;
 	    	
 	    }
 	</script>
@@ -74,6 +104,9 @@
             <div class="good-top-box clearfix">
 
                 <div class="good-top-swiper" style="">
+						<c:set var="user" scope="session" value="${fns:getUser()}"/>
+						<input type="hidden" id="userId" name="userId" value="${user.id}">
+						
 						<c:set var="imageShare2" scope="session" value="${fnp:getImageByPath(product.imageShare2)}"/>
 						<c:set var="imageShare3" scope="session" value="${fnp:getImageByPath(product.imageShare3)}"/>
 						
@@ -109,11 +142,20 @@
 	                        </i>
 	                       	 浏览次数： ${product.hits}次
                        	</span>
-                       	<a href="javascript:addCollection('${product.id}');" style="float:right;color:#2a2a2a;">
-	                        <i class="ico">
-	                            <img src="${ctxStatic}/modules/cms/front/themes/basic/asset/img/star.png" alt="" title="点我收藏">
-	                        </i>
-	                        	收藏产品：2人气
+                       		<a href="javascript:addCollection('${product.id}');" style="float:right;color:#2a2a2a;">
+                        <i class="ico">
+                            <c:choose>
+                            <%--  < img name="mycollection" <c:when test="$collectionState==1">src="未收藏图片url"</c:when> 
+                            <c:otherwise> src="已收藏图片url" </c:otherwise> </img>--%>
+                            	<c:when test="${collectionState == 1}"><!-- 状态等于1时是未收藏 -->
+                            			<img name="myCollection" src="${ctxStatic}/modules/cms/front/themes/basic/asset/img/star.png" alt="${collectionState}" >
+                            	</c:when>
+                            	<c:otherwise>
+                            			<img name="myCollection" src="${ctxStatic}/modules/cms/front/themes/basic/asset/img/star1.png" alt="${collectionState}">
+                            	</c:otherwise>
+                            </c:choose>
+                        </i>
+                        	收藏产品： 2 人气
                         </a>
                     </p>
                     <ul class="specifications">

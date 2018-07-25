@@ -42,6 +42,12 @@
 		<include refid="userProductJoins"/>
 		<where>
 			a.del_flag = #{delFlag}
+			<if test="product != null">
+				AND a.product_id = #{product.id}
+			</if>
+			<if test="user != null">
+				AND a.user_id = #{user.id}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
