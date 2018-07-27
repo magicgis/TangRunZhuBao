@@ -30,6 +30,10 @@ public class IdGen implements IdGenerator, SessionIdGenerator {
 	public static String uuid() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
+
+	public static String uuid6(){
+		return uuid().substring(3,9);
+	}
 	
 	/**
 	 * 使用SecureRandom随机生成Long. 

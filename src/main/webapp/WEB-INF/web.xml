@@ -177,7 +177,19 @@
 		<servlet-name>ValidateCodeServlet</servlet-name>
 		<url-pattern>/servlet/validateCodeServlet</url-pattern>
 	</servlet-mapping>
-	
+
+
+	<!-- Validate Num -->
+	<servlet>
+		<servlet-name>ValidateNumServlet</servlet-name>
+		<servlet-class>com.thinkgem.jeesite.common.servlet.ValidateNumServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ValidateNumServlet</servlet-name>
+		<url-pattern>/servlet/validateNumServlet</url-pattern>
+	</servlet-mapping>
+
+
 	<!-- FineReport 
 	<servlet>
 		<servlet-name>ReportServer</servlet-name>

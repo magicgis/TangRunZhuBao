@@ -57,7 +57,7 @@
 	    
 	    
 	    function changeMemberCenter(flag){
-			
+            console.log('flag==============================================');
 			var usuff = "${fns:getUrlSuffix()}";
 			var action = "";
 			if(flag==2){//修改密码
@@ -185,7 +185,7 @@
 								<div class="name">登录名：</div>
 								<div class="input-div-wrap">
 									<!-- 隐藏域 -->
-									<input type="text" id="loginName" name="loginName"  disabled class="input-control" value="${user.loginName}">
+									<input type="text" id="loginName" name="loginName"  readonly class="input-control" value="${user.loginName}">
 								</div>
 							</div>
 					        <div class="form-column-control clearfix">

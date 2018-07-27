@@ -12,7 +12,8 @@
 	        <span class="subtitle">尽量填写完整信息，方便店家与你联系！</span>
 	    </div>
 	    <div class="personal-form clearfix">
-	        <div class="form-column-control clearfix">
+			<sys:message content="${message}"/>
+			<div class="form-column-control clearfix">
 	            <div class="name">姓名：</div>
 	            <div class="input-div-wrap">
 	                <input type="text" class="input-control">

@@ -54,10 +54,7 @@
 		  position: relative;
 		  top: -1px;
 		}
-		
-		
-		
-		
+
 		.user-reg .user-reg-box .form-col-control .vcode-input {
 		  width: 90px;
 		  float: left;
@@ -100,7 +97,16 @@
 		  display: block;
 		  width: 100%;
 		}
-		@media (max-width: 470px) {
+
+        .user-reg .user-reg-box .form-col-control a {
+            float: right;
+            height: 16px;
+            margin: 20px 5px;
+            padding-right: 0;
+        }
+
+
+        @media (max-width: 470px) {
 		  .user-reg {
 		    padding-top: 20px;
 		  }
@@ -174,6 +180,7 @@
 								<label id="loginError" class="error">${message}</label>
 							</div>
 						</div>
+                        <sys:message content="${message}"/>
 						<%--<h1 class="form-signin-heading">${fns:getConfig('productName')}</h1> --%>
 						<form id="loginForm" class="form-signin" action="${ctx}/login" method="post">
 							
@@ -183,15 +190,17 @@
 		                    </div>
 		                    <div class="form-col-control">
 		                        <label class="label-title" for="password">密码:</label>
-		                        <input type="password" id="password" name="password" class="input-control required">
+								<input type="password" id="password" name="password" class="input-control required"><br/>
+								<a href="${ctxStaticFront}/getBackPassword">忘记密码？</a>
 		                    </div>
-							
+
 							<c:if test="${isValidateCodeLogin}">
 								<div class="validateCode form-col-control">
 									<label class="label-title mid" for="validateCode">验证码:</label>
 									<sys:validateCode name="validateCode" inputCssStyle="margin-bottom:0;"/>
 								</div>
 							</c:if>
+
 							<input class="register-btn" type="submit" value="登 录"/>&nbsp;&nbsp;
 							<br>
 							<label for="rememberMe" title="下次不需要再登录">

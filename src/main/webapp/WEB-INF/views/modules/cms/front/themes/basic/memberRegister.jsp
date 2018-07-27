@@ -28,6 +28,10 @@
                         checkMobile:true,
                         remote: "${ctx}/checkMobile"
                     },
+                    email: {
+                        requried: true,
+                        remote: "{ctx}/checkEmail"
+                    },
                     agree: {
                         required: true
                     },
@@ -44,6 +48,9 @@
                             required:"手机号码不能为空",
                             remote: "手机号码已存在",
                         confirmNewPassword: {equalTo: "输入与上面相同的密码"}
+                    },
+                    email: {
+                        remote: "改邮箱已被注册"
                     },
                     agree: {
                         required: "请同意我们的注册协议"
@@ -154,6 +161,10 @@
                     <div class="form-col-control">
                         <span class="label-title">手机号码<font color="red">*</font>:</span>
                         <form:input path="mobile" id="mobile" htmlEscape="false" maxlength="100" cssClass="input-control"/>
+                    </div>
+                    <div class="form-col-control">
+                        <span class="label-title">邮箱地址<font color="red">*</font>:</span>
+                        <form:input path="email" id="mobile" htmlEscape="false" maxlength="100" cssClass="input-control email"/>
                     </div>
                     <div class="form-col-control">
                         <span class="label-title">密码<font color="red">*</font>:</span>

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.servlet.ValidateCodeServlet;
+import com.thinkgem.jeesite.common.servlet.ValidateNumServlet;
 import com.thinkgem.jeesite.common.utils.JsonUtil;
 import com.thinkgem.jeesite.common.utils.SmsLeyunUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
@@ -40,6 +41,7 @@ import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
@@ -111,16 +113,14 @@ public class FrontMembersController extends BaseController {
 		user.setName(user.getLoginName());
 		user.setCompany(new Office(REGISTER_OFFICE_ID));
 		user.setOffice(new Office(REGISTER_OFFICE_ID));
-		user.setCreateBy(new User("1"));
-		user.setUpdateBy(new User("1"));
-		user.setCreateDate(new Date());
-		user.setUpdateDate(new Date());
+		user.preInsert();
 		if (StringUtils.isNotBlank(user.getPassword())) {
 			user.setPassword(SystemService.entryptPassword(user.getPassword()));
 		}
 		if (!beanValidator(model, user)){
 			return formUser(user, model);
 		}
+
 		if (!"true".equals(checkLoginName(user.getLoginName()))){
 			addMessage(model, "注册用户失败，登录名：'"+user.getLoginName()+"'已存在");
 			return formUser(user, model);
@@ -145,7 +145,7 @@ public class FrontMembersController extends BaseController {
 		// 清除当前用户缓存
 
 		addMessage(redirectAttributes, "保存用户'" + user.getLoginName() + "'成功");
-		return "redirect:"+frontPath+"/frontMemberCenterPersonalInfo?repage";
+		return "redirect:"+frontPath+"/frontMemberCenterPersonalInfo";
 	}
 
 	@RequestMapping(value = "form")
@@ -164,7 +164,7 @@ public class FrontMembersController extends BaseController {
 
 	/**
 	 * 验证登录名是否有效
-	 * @param oldLoginName
+	 * @param loginName
 	 * @return
 	 */
 	@ResponseBody
@@ -192,6 +192,51 @@ public class FrontMembersController extends BaseController {
 		}
 		return "false";
 	}
+	/**
+	 * 验证手机号码是否存在
+	 * @param mobile
+	 * @param mobile
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "checkMobileExits")
+	public String checkMobileExits(String mobile) {
+		List userList=systemService.getUserByMobile(mobile);
+		if (mobile !=null && CollectionUtils.isEmpty(userList)) {
+			return "false";
+		}
+		return "true";
+	}
+
+	/**
+	 * 验证手机号码是否有效
+	 * @param email
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "checkEmail")
+	public String checkEmail(String email) {
+		List userList=systemService.getUserByEamil(email);
+		if (email !=null && CollectionUtils.isEmpty(userList)) {
+			return "true";
+		}
+		return "false";
+	}
+	/**
+	 * 验证邮箱是否存在
+	 * @param email
+	 * @param email
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "checkEmailExits")
+	public String checkEmailExits(String email) {
+		List userList=systemService.getUserByEamil(email);
+		if (email !=null && CollectionUtils.isEmpty(userList)) {
+			return "false";
+		}
+		return "true";
+	}
 
 
 
@@ -205,6 +250,7 @@ public class FrontMembersController extends BaseController {
 	public String getSmsCode(String mobile) {
 		//ObjectMapper mapper = new ObjectMapper();
 		//mapper.readTree(SmsLeyunUtils.send("登陆验证码为：9999",mobile,""));
+
 		return "false";
 	}
 
@@ -224,13 +270,31 @@ public class FrontMembersController extends BaseController {
 		return "modules/cms/front/themes/basic/memberGetBackPassword";
 	}
 
+
+	/**
+	 * 验证码校验
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "checkVCode")
+	@ResponseBody
+	public boolean checkVCode(String vcode,Model model,HttpServletRequest request) {
+
+		if(!ValidateCodeServlet.validate(request,vcode)){
+			logger.info("验证码错误============================，vcode:{}",vcode);
+			return false;
+		}
+		return true;
+	}
+
+
 	/**
 	 * 个人中心
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "frontMemberCenter")
-	public String memberCenter(User user,HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String memberCenter(User user,HttpServletRequest request, HttpServletResponse response,Model model, RedirectAttributes redirectAttributes) {
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
@@ -245,9 +309,9 @@ public class FrontMembersController extends BaseController {
 			currentUser.setPhoto(user.getPhoto());
 			systemService.updateUserInfo(currentUser);
 			//model.addAttribute("message", "保存用户信息成功");
+			addMessage(model, "保存用户'" + user.getLoginName() + "'成功");
 		}
 		model.addAttribute("user", currentUser);
-
 		return "modules/cms/front/themes/basic/memberCenter";
 	}
 	
@@ -394,5 +458,64 @@ public class FrontMembersController extends BaseController {
 		
 		UserUtils.getSubject().logout();
 		return "redirect:" + frontPath + "/frontMemberCenter";
+	}
+
+
+	/**
+	 * 重置密码
+	 */
+	@RequestMapping(value = "getBackPassword")
+	public String getBackPassword(Model model) {
+		Site site = CmsUtils.getSite(Site.defaultSiteId());
+		model.addAttribute("site", site);
+		model.addAttribute("isIndex", true);
+
+		return "modules/cms/front/themes/basic/memberGetBackPassword";
+	}
+
+
+	@RequestMapping(value = "formBackpassword")
+	public String formBackpassword(User user, Model model) {
+
+		model.addAttribute("user", user);
+		model.addAttribute("site", CmsUtils.getSite(Site.defaultSiteId()));
+		return "modules/cms/front/themes/basic/memberGetBackPassword";
+	}
+
+
+
+	/**
+	 * 重置密码
+	 */
+	@RequestMapping(value = "doBackPassword")
+	public String backPassword(User user,HttpServletRequest request, HttpServletResponse response,Model model, RedirectAttributes redirectAttributes) {
+
+		if (user.getEmail()!=null) {
+			List<User> userlist = systemService.getUserByEamil(request.getParameter("Email"));
+			if (!CollectionUtils.isEmpty(userlist)) {
+				user=userlist.get(0);
+				if (!ValidateNumServlet.validate(request, request.getParameter("vnum"))) {
+					addMessage(model, "邮箱验证码错误，请重新输入");
+					return formBackpassword(user, model);
+				}
+
+				if (StringUtils.isNotBlank(user.getPassword())) {
+					user.setPassword(SystemService.entryptPassword(user.getPassword()));
+				}
+
+				systemService.updateUserInfo(user);
+				// 清除当前用户缓存
+
+				addMessage(redirectAttributes, "保存用户'" + user.getLoginName() + "'成功");
+			}else{
+				addMessage(model, "邮箱错误，请重新输入");
+				formBackpassword(user,model);
+			}
+		}else{
+			addMessage(model, "邮箱不能为空，请重新输入");
+			formBackpassword(user,model);
+		}
+		addMessage(redirectAttributes, "密码重置成功，页面自动跳转登录页");
+		return "redirect:"+adminPath+"/login";
 	}
 }
