@@ -26,7 +26,7 @@ public class ValidateNumServlet extends HttpServlet {
 
     public static boolean validate(HttpServletRequest request, String validateCode){
         String code = (String)request.getSession().getAttribute(VALIDATE_NUM);
-        return validateCode.toUpperCase().equals(code);
+        return validateCode.toUpperCase().equals(code.toUpperCase());
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ValidateNumServlet extends HttpServlet {
     private void createValidateNum(HttpServletRequest request,HttpServletResponse response) throws IOException{
         String s = IdGen.uuid6();
         final String  email=request.getParameter("email");
-        final String message=String.format("请在5分钟内完成验证，过期失效。\\r\\n 验证码：%s",s);
+        final String message=String.format("请在5分钟内完成验证，过期失效。<br/> 验证码：%s",s);
         ExecutorServiceFactory.getInstance().getThreadPool().execute(new Runnable() {
             @Override
             public void run() {

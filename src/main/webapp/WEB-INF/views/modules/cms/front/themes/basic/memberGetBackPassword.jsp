@@ -118,15 +118,14 @@
                         },
                         success: function (data) {
                             console.log(data);
-                            settime($("#l_gsc"));
-                            /*if(data.success) {
-
+                            if(data.success) {
+                                settime($("#l_gsc"));
                             }else{
                                 setTimeout(function() {
                                     settime($("#l_gsc"));
                                 }, 1000);
                                 jBox.tip("发送验证码失败，请稍后再试");
-                            }*/
+                            }
                         }
                     });
                 }

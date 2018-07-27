@@ -45,6 +45,8 @@ import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 @Service
 @Transactional(readOnly = true)
 public class SystemService extends BaseService implements InitializingBean {
+
+
 	
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;

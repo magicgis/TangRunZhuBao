@@ -19,6 +19,7 @@ import com.thinkgem.jeesite.modules.sys.entity.Role;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 
+import org.apache.log4j.spi.LoggerRepository;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -488,32 +489,32 @@ public class FrontMembersController extends BaseController {
 	 * 重置密码
 	 */
 	@RequestMapping(value = "doBackPassword")
-	public String backPassword(User user,HttpServletRequest request, HttpServletResponse response,Model model, RedirectAttributes redirectAttributes) {
+	public String backPassword(String email,HttpServletRequest request, HttpServletResponse response,Model model, RedirectAttributes redirectAttributes) {
 
-		if (user.getEmail()!=null) {
-			List<User> userlist = systemService.getUserByEamil(request.getParameter("Email"));
+		if (StringUtils.isNotEmpty(email)) {
+			List<User> userlist = systemService.getUserByEamil(email);
 			if (!CollectionUtils.isEmpty(userlist)) {
-				user=userlist.get(0);
+			   User user=userlist.get(0);
 				if (!ValidateNumServlet.validate(request, request.getParameter("vnum"))) {
 					addMessage(model, "邮箱验证码错误，请重新输入");
 					return formBackpassword(user, model);
 				}
 
-				if (StringUtils.isNotBlank(user.getPassword())) {
-					user.setPassword(SystemService.entryptPassword(user.getPassword()));
+
+				if (StringUtils.isNotBlank(request.getParameter("password"))) {
+					logger.info("用户名：{}， 原始密码：{}，修改后密码：{}",user.getLoginName(),user.getPassword(),SystemService.entryptPassword(request.getParameter("password")));
+					user.setPassword(request.getParameter("password"));
 				}
 
-				systemService.updateUserInfo(user);
-				// 清除当前用户缓存
-
+				systemService.updatePasswordById(user.getId(),user.getLoginName(),user.getPassword());
 				addMessage(redirectAttributes, "保存用户'" + user.getLoginName() + "'成功");
 			}else{
 				addMessage(model, "邮箱错误，请重新输入");
-				formBackpassword(user,model);
+				formBackpassword(new User(),model);
 			}
 		}else{
 			addMessage(model, "邮箱不能为空，请重新输入");
-			formBackpassword(user,model);
+			formBackpassword(new User(),model);
 		}
 		addMessage(redirectAttributes, "密码重置成功，页面自动跳转登录页");
 		return "redirect:"+adminPath+"/login";
