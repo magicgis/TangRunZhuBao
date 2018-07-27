@@ -15,8 +15,15 @@
 	            $(this).addClass('active');
 	        })
 	    })
-	    
 	</script>
+	<style type="text/css">
+		.acticleP {
+			font-size:14px;
+			line-height:24px;
+			color:#434343;
+			text-indent:2rem;
+		}
+	</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/modules/cms/front/include/title.jsp"%>
@@ -50,9 +57,8 @@
                     <a href="javascript:;">${article.title}</a>
                 </div>
                 <div class="group-profile">
-                	${article.articleData.content}
-                	
-                	
+                	${article.articleData.content} 
+
                 </div>   
 
             </div>
