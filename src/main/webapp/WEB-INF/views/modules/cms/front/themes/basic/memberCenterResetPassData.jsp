@@ -29,7 +29,7 @@
 		function submitPassword(){
 			var usuff = "${fns:getUrlSuffix()}";
 
-			if($("#inputForm").validate()) {
+			if($("#myForm").validate()) {
 
                 $.ajax({
                     type: "POST",
@@ -38,12 +38,12 @@
                     data: $("#myForm").serialize(),
                     success: function (errorCode) {
                         if (errorCode == 0) {
-                            alert("修改密码成功!");
+                            $.jBox.tip('修改密码成功!','info');
                             window.location.reload();//刷新当前页面
                         } else if (errorCode == 1) {
-                            alert("修改密码失败!");
+                            $.jBox.tip('修改密码失败!','error');
                         } else {
-                            alert("原密码或者新密码不可为空!");
+                        	$.jBox.tip('原密码或者新密码不可为空!','error');
                         }
 
                     }

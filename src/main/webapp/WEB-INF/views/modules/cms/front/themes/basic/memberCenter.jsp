@@ -119,7 +119,7 @@
 			   url: ctx+"/frontMemberCenterMyCollectionDelete"+usuff,
 			   data: $("#searchForm").serialize(),
 			   success: function(errorCode){
-				   alert("删除成功！");
+				   $.jBox.tip('删除成功！','info');
 				   /* if(errorCode==0){
 			   			alert("删除成功！");
 			   		}    */

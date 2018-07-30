@@ -71,13 +71,13 @@
         				data:$("#inputForm").serialize(),
         				success:function(errorCode){
         					if(errorCode==0){
-        						alert("添加信息成功！！");
+        						$.jBox.tip('添加信息成功！','info');
         					}else{
-        						alert("添加信息失败！！");
+        						$.jBox.tip('添加信息失败！','error');
         					}
         				},
         		        error:function(){
-        		        	alert("出现异常，请重新输入信息！");
+        		        	$.jBox.tip('出现异常，请重新输入信息！','error');
         		        }
         		 	});
                 }
