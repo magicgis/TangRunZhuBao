@@ -28,7 +28,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}/alliancebusiness/allianceBusiness/">加盟商管理列表</a></li>
-		<li class="active"><a href="${ctx}/alliancebusiness/allianceBusiness/form?id=${allianceBusiness.id}">加盟商管理<shiro:hasPermission name="alliancebusiness:allianceBusiness:edit">${not empty allianceBusiness.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="alliancebusiness:allianceBusiness:edit">查看</shiro:lacksPermission></a></li>
+		<%-- <li class="active"><a href="${ctx}/alliancebusiness/allianceBusiness/form?id=${allianceBusiness.id}">加盟商管理<shiro:hasPermission name="alliancebusiness:allianceBusiness:edit">${not empty allianceBusiness.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="alliancebusiness:allianceBusiness:edit">查看</shiro:lacksPermission></a></li> --%>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="allianceBusiness" action="${ctx}/alliancebusiness/allianceBusiness/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>

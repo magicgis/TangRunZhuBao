@@ -5,7 +5,6 @@
 	<title>站点管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
-		alert("我进来了.........");
 		function page(n,s){
 			$("#pageNo").val(n);
 			$("#pageSize").val(s);

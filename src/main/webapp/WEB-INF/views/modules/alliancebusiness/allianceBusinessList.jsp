@@ -19,7 +19,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/alliancebusiness/allianceBusiness/">加盟商管理列表</a></li>
-		<shiro:hasPermission name="alliancebusiness:allianceBusiness:edit"><li><a href="${ctx}/alliancebusiness/allianceBusiness/form">加盟商管理添加</a></li></shiro:hasPermission>
+		<%-- <shiro:hasPermission name="alliancebusiness:allianceBusiness:edit"><li><a href="${ctx}/alliancebusiness/allianceBusiness/form">加盟商管理添加</a></li></shiro:hasPermission> --%>
 	</ul>
 	<form:form id="searchForm" modelAttribute="allianceBusiness" action="${ctx}/alliancebusiness/allianceBusiness/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
