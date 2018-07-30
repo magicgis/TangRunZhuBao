@@ -13,12 +13,12 @@
                      <div class="goods-win">
                      	 <c:if test="${nephriteListSize >0}">
 		                     <span class="goods-image">
-		                         <img class="lazy" src="${nephriteList.get(0).imageNephrite1}" alt="">
+		                         <img class="lazy" src="${nephriteList[0].imageNephrite1}" alt="">
 		                     </span>
 	                         <div class="bar">
-	                             <span class="name">${nephriteList.get(0).fullName}</span>
-	                             <span class="subhead">${nephriteList.get(0).brand}</span>
-	                             <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(0).id}" class="go-look">查看详情</a>
+	                             <span class="name">${nephriteList[0].fullName}</span>
+	                             <span class="subhead">${nephriteList[0].brand}</span>
+	                             <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[0].id}" class="go-look">查看详情</a>
 	                         </div>
 	                     </c:if>
                      </div>
@@ -33,12 +33,12 @@
                      <div class="goods-win">
 	                     <c:if test="${nephriteListSize >1}">
 		                     <span class="goods-image">
-		                         <img class="lazy" src="${nephriteList.get(1).imageNephrite1}" alt="">
+		                         <img class="lazy" src="${nephriteList[1].imageNephrite1}" alt="">
 		                     </span>
 	                         <div class="bar">
-	                             <span class="name">${nephriteList.get(1).fullName}</span>
-	                             <span class="subhead">${nephriteList.get(1).brand}</span>
-	                             <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(1).id}" class="go-look">查看详情</a>
+	                             <span class="name">${nephriteList[1].fullName}</span>
+	                             <span class="subhead">${nephriteList[1].brand}</span>
+	                             <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[1].id}" class="go-look">查看详情</a>
 	                         </div>
                          </c:if>
                      </div>
@@ -52,12 +52,12 @@
                      <div class="goods-win">
 	                     <c:if test="${nephriteListSize >2}">
 		                     <span class="goods-image">
-		                         <img class="lazy" src="${nephriteList.get(2).imageNephrite1}" alt="">
+		                         <img class="lazy" src="${nephriteList[2].imageNephrite1}" alt="">
 		                     </span>
 	                         <div class="bar">
-	                             <span class="name">${nephriteList.get(2).fullName}</span>
-	                             <span class="subhead">${nephriteList.get(2).brand}</span>
-	                             <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(2).id}" class="go-look">查看详情</a>
+	                             <span class="name">${nephriteList[2].fullName}</span>
+	                             <span class="subhead">${nephriteList[2].brand}</span>
+	                             <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[2].id}" class="go-look">查看详情</a>
 	                         </div>
 	                     </c:if>
                      </div>
@@ -74,11 +74,11 @@
                        <div class="goods-win">
 		                      <c:if test="${nephriteListSize >3}"> 
 		                          <span class="goods-image">
-		                            <img class="lazy" src="${nephriteList.get(3).imageNephrite2}" alt="">
+		                            <img class="lazy" src="${nephriteList[3].imageNephrite2}" alt="">
 		                          </span>
 	                              <div class="bar">
-	                                  <span class="subhead">${nephriteList.get(3).fullName}</span>
-	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(3).id}" class="go-look">查看详情</a>
+	                                  <span class="subhead">${nephriteList[3].fullName}</span>
+	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[3].id}" class="go-look">查看详情</a>
 	                              </div>
 	                           </c:if>
                           </div>
@@ -94,11 +94,11 @@
                           <div class="goods-win">
 			                  <c:if test="${nephriteListSize >4}">
 			                      <span class="goods-image">
-		                              <img class="lazy" src="${nephriteList.get(4).imageNephrite3}" alt="">
+		                              <img class="lazy" src="${nephriteList[4].imageNephrite3}" alt="">
 			                      </span>
 	                              <div class="bar">
-	                                  <span class="subhead">${nephriteList.get(4).fullName}</span>
-	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(4).id}" class="go-look">查看详情</a>
+	                                  <span class="subhead">${nephriteList[4].fullName}</span>
+	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[4].id}" class="go-look">查看详情</a>
 	                              </div>
 	                          </c:if>
                           </div>
@@ -112,11 +112,11 @@
                           <div class="goods-win">
                           	<c:if test="${nephriteListSize >5}">
 		                          <span class="goods-image">
-		                            <img class="lazy" src="${nephriteList.get(5).imageNephrite3}" alt="">
+		                            <img class="lazy" src="${nephriteList[5].imageNephrite3}" alt="">
 		                          </span>
 	                              <div class="bar">
-	                                  <span class="subhead">${nephriteList.get(5).fullName}</span>
-	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(5).id}" class="go-look">查看详情</a>
+	                                  <span class="subhead">${nephriteList[5].fullName}</span>
+	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[5].id}" class="go-look">查看详情</a>
 	                              </div>
 	                            </c:if>
                           </div>
@@ -130,11 +130,11 @@
                            <div class="goods-win">
                            		<c:if test="${nephriteListSize >6}">
 		                          <span class="goods-image">
-		                            <img class="lazy" src="${nephriteList.get(6).imageNephrite3}" alt="">
+		                            <img class="lazy" src="${nephriteList[6].imageNephrite3}" alt="">
 		                          </span>
 	                              <div class="bar">
-	                                  <span class="subhead">${nephriteList.get(6).fullName}</span>
-	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(6).id}" class="go-look">查看详情</a>
+	                                  <span class="subhead">${nephriteList[6].fullName}</span>
+	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[6].id}" class="go-look">查看详情</a>
 	                              </div>
 	                           </c:if>
                           </div>
@@ -148,11 +148,11 @@
                            <div class="goods-win">
                            		<c:if test="${nephriteListSize >7}">
 		                          <span class="goods-image">
-		                            <img class="lazy" src="${nephriteList.get(7).imageNephrite3}" alt="">
+		                            <img class="lazy" src="${nephriteList[7].imageNephrite3}" alt="">
 		                          </span>
 	                              <div class="bar">
-	                                  <span class="subhead">${nephriteList.get(7).fullName}</span>
-	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(7).id}" class="go-look">查看详情</a>
+	                                  <span class="subhead">${nephriteList[7].fullName}</span>
+	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[7].id}" class="go-look">查看详情</a>
 	                              </div>
 	                           </c:if>
                           </div>
@@ -166,11 +166,11 @@
                           <div class="goods-win">
 	                          <c:if test="${nephriteListSize >8}">
 		                        <span class="goods-image">
-		                            <img class="lazy" src="${nephriteList.get(8).imageNephrite3}" alt="">
+		                            <img class="lazy" src="${nephriteList[8].imageNephrite3}" alt="">
 		                        </span>
                                 <div class="bar">
-                                  <span class="subhead">${nephriteList.get(8).fullName}</span>
-                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(8).id}" class="go-look">查看详情</a>
+                                  <span class="subhead">${nephriteList[8].fullName}</span>
+                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[8].id}" class="go-look">查看详情</a>
                                 </div>
                               </c:if>
                           </div>
@@ -184,11 +184,11 @@
                            <div class="goods-win">
                            		<c:if test="${nephriteListSize >9}">
 		                          <span class="goods-image">
-		                            <img class="lazy" src="${nephriteList.get(9).imageNephrite3}" alt="">
+		                            <img class="lazy" src="${nephriteList[9].imageNephrite3}" alt="">
 		                          </span>
 	                              <div class="bar">
-	                                  <span class="subhead">${nephriteList.get(9).fullName}</span>
-	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList.get(9).id}" class="go-look">查看详情</a>
+	                                  <span class="subhead">${nephriteList[9].fullName}</span>
+	                                  <a href="${ctx}/frontProductDetail${fns:getUrlSuffix()}?id=${nephriteList[9].id}" class="go-look">查看详情</a>
 	                              </div>
 	                           </c:if>
                           </div>
